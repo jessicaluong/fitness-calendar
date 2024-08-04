@@ -1,4 +1,4 @@
-[Insert image]
+<img width="900" alt="calendar" src="https://github.com/user-attachments/assets/17201dc8-7e6d-4b7a-bbae-634728e71bd0">
 
 # Fitness Calendar
 
@@ -15,7 +15,7 @@ I am currently working on:
 
 Below is the low fidelity prototype for the planned user interface:
 
-[Insert image]
+![prototype](https://github.com/user-attachments/assets/f817f32d-8534-4e6e-81fe-b0c71b3952cd)
 
 ## Technologies Used
 

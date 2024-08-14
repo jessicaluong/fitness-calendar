@@ -3,16 +3,17 @@ import Calendar from "./Calendar";
 import Header from "./Header";
 import { useState } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
+import { CalendarData, CategoryColors } from "@/lib/types";
 
 function App() {
-  const categoryColors = {
+  const categoryColors: CategoryColors = {
     cardio: "blue",
     yoga: "pink",
     gym: "yellow",
     hiking: "green",
   };
 
-  const calendarData = {
+  const calendarData: CalendarData = {
     "2024-07-21": [
       {
         category: "cardio",
@@ -39,7 +40,7 @@ function App() {
               { sets: 3, reps: 10, name: "back rows (10 lb)" },
               { sets: 3, reps: 12, name: "lat pull down (15 lb)" },
               { sets: 4, reps: 10, name: "tricep extensions (8 lb)" },
-              { sets: 3, reps: 12, name: "lat raises (5 lb)" },
+              { sets: 3, reps: 12, name: "lateral raises (5 lb)" },
             ],
           },
         ],
@@ -99,7 +100,7 @@ function App() {
     )}-${String(now.getDate()).padStart(2, "0")}`;
   });
 
-  const handleClickDate = (date) => {
+  const handleClickDate = (date: string) => {
     setSelectedDate(date);
   };
 

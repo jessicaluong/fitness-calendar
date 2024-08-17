@@ -1,13 +1,7 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import ExerciseCard from "./ExerciseCard";
 import { getColorClasses } from "@/lib/utils";
-import { Color, Exercise, Theme } from "@/lib/types";
-
-type Activity = {
-  time: string;
-  description: string;
-  exercises?: Exercise[];
-};
+import { Color, Theme, Activity } from "@/lib/types";
 
 type ActivityCardProps = {
   activity: Activity;
@@ -25,7 +19,7 @@ export default function ActivityCard({
       <Card background={getColorClasses(color, "activity", theme)}>
         <CardHeader>
           <CardTitle>
-            {activity.time} {activity.description}
+            {activity.time} {activity.name}
           </CardTitle>
         </CardHeader>
         {activity.exercises && (

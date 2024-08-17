@@ -1,4 +1,5 @@
-export type Category = "cardio" | "yoga" | "gym" | "hiking";
+export const CATEGORIES = ["cardio", "yoga", "gym", "hiking"] as const;
+export type Category = (typeof CATEGORIES)[number];
 export type CategoryColors = {
   [key in Category]: Color;
 };
@@ -14,7 +15,7 @@ export type Exercise = {
 
 export type Activity = {
   time: string;
-  description: string;
+  name: string;
   exercises?: Exercise[];
 };
 

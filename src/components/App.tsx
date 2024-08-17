@@ -105,12 +105,23 @@ function App() {
     ],
   });
 
+  const handleAddActivity = (newActivity: CategoryData) => {
+    setCalendarData((prevData) => {
+      const updatedData = { ...prevData };
+      if (!updatedData[selectedDate]) {
+        updatedData[selectedDate] = [];
+      }
+      updatedData[selectedDate].push(newActivity);
+      return updatedData;
+    });
+  };
+
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <main className="flex justify-center w-full p-[5px] md:p-[10px]">
         <div className="grid grid-cols-1 gap-0.5 md:gap-1 justify-items-center  max-w-[720px]">
           <div className="w-full">
-            <Header />
+            <Header handleAddActivity={handleAddActivity} />
             <div className="mx-auto">
               <Calendar
                 calendarData={calendarData}

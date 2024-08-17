@@ -4,6 +4,7 @@ import Header from "./Header";
 import { useState } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CalendarData, CategoryColors } from "@/lib/types";
+import { CategoryData } from "@/lib/types";
 
 function App() {
   const categoryColors: CategoryColors = {
@@ -13,29 +14,41 @@ function App() {
     hiking: "green",
   };
 
-  const calendarData: CalendarData = {
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(now.getDate()).padStart(2, "0")}`;
+  });
+
+  const handleClickDate = (date: string) => {
+    setSelectedDate(date);
+  };
+
+  const [calendarData, setCalendarData] = useState<CalendarData>({
     "2024-07-21": [
       {
         category: "cardio",
         activities: [
-          { time: "30 min", description: "walking workout" },
-          { time: "15 min", description: "low impact aerobics" },
+          { minutes: 30, name: "walking workout" },
+          { minutes: 15, name: "low impact aerobics" },
         ],
       },
       {
         category: "yoga",
-        activities: [{ time: "45 min", description: "hatha" }],
+        activities: [{ minutes: 45, name: "hatha" }],
       },
       {
         category: "hiking",
-        activities: [{ time: "60 min", description: "grouse grind" }],
+        activities: [{ minutes: 60, name: "grouse grind" }],
       },
       {
         category: "gym",
         activities: [
           {
-            time: "60 min",
-            description: "upper body",
+            minutes: 60,
+            name: "upper body",
             exercises: [
               { sets: 3, reps: 10, name: "back rows (10 lb)" },
               { sets: 3, reps: 12, name: "lat pull down (15 lb)" },
@@ -50,8 +63,8 @@ function App() {
       {
         category: "cardio",
         activities: [
-          { time: "30 min", description: "walking workout" },
-          { time: "15 min", description: "low impact aerobics" },
+          { minutes: 30, name: "walking workout" },
+          { minutes: 15, name: "low impact aerobics" },
         ],
       },
     ],
@@ -59,8 +72,8 @@ function App() {
       {
         category: "hiking",
         activities: [
-          { time: "60 min", description: "grouse grind" },
-          { time: "60 min", description: "grouse grind" },
+          { minutes: 60, name: "grouse grind" },
+          { minutes: 60, name: "grouse grind" },
         ],
       },
     ],
@@ -70,8 +83,8 @@ function App() {
         category: "gym",
         activities: [
           {
-            time: "60 min",
-            description: "upper body",
+            minutes: 60,
+            name: "upper body",
             exercises: [
               { sets: 3, reps: 10, name: "back rows" },
               { sets: 3, reps: 12, name: "lat pull down" },
@@ -87,22 +100,10 @@ function App() {
     "2024-08-23": [
       {
         category: "hiking",
-        activities: [{ time: "60 min", description: "grouse grind" }],
+        activities: [{ minutes: 60, name: "grouse grind" }],
       },
     ],
-  };
-
-  const [selectedDate, setSelectedDate] = useState(() => {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(now.getDate()).padStart(2, "0")}`;
   });
-
-  const handleClickDate = (date: string) => {
-    setSelectedDate(date);
-  };
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">

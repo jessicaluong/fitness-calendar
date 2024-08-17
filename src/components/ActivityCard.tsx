@@ -19,7 +19,7 @@ export default function ActivityCard({
       <Card background={getColorClasses(color, "activity", theme)}>
         <CardHeader>
           <CardTitle>
-            {activity.time} {activity.name}
+            {activity.minutes} minutes {activity.name}
           </CardTitle>
         </CardHeader>
         {activity.exercises && (

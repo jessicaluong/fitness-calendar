@@ -14,7 +14,7 @@ export type Exercise = {
 };
 
 export type Activity = {
-  time: string;
+  minutes: number;
   name: string;
   exercises?: Exercise[];
 };

@@ -18,7 +18,7 @@ export function getColorClasses(
     exercise: 100,
   };
   const darkShades = {
-    calendar: 900,
+    calendar: 600,
     category: 800,
     activity: 700,
     exercise: 600,

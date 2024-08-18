@@ -8,14 +8,15 @@ export type Theme = "dark" | "light" | "system";
 export type Variant = "calendar" | "category" | "activity" | "exercise";
 
 export type Exercise = {
+  name: string;
   sets: number;
   reps: number;
-  name: string;
+  weight: number;
 };
 
 export type Activity = {
-  minutes: number;
   name: string;
+  minutes: number;
   exercises?: Exercise[];
 };
 

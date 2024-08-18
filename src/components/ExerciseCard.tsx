@@ -20,7 +20,8 @@ export default function ExerciseCard({
           <CardTitle left>
             {exercises.map((exercise) => (
               <p>
-                {exercise.sets} x {exercise.reps} {exercise.name}
+                {exercise.sets} x {exercise.reps} {exercise.name} (
+                {exercise.weight} lbs)
               </p>
             ))}
           </CardTitle>

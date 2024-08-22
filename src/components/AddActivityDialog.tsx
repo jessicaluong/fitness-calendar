@@ -245,6 +245,18 @@ export function AddActivityDialog({
               >
                 Add Exercise
               </Button>
+              {exercises.length > 0 && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    const updatedExercises = exercises.slice(0, -1);
+                    setExercises(updatedExercises);
+                    form.setValue(`exercises`, updatedExercises);
+                  }}
+                >
+                  Remove Exercise
+                </Button>
+              )}
               <Button type="submit">Save</Button>
             </DialogFooter>
           </form>

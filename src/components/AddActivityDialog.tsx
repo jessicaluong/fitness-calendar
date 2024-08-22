@@ -88,7 +88,7 @@ export function AddActivityDialog({
 
     handleAddActivity(newActivity);
     console.log(values);
-    // TODO: close dialog after submit
+    // TODO: close dialog after submit and reset form
   }
 
   const exerciseFields = [
@@ -174,7 +174,7 @@ export function AddActivityDialog({
             />
             {exercises.map((exercise, index) => (
               <div
-                key={`exercise-${index}`}
+                key={`${exercise.name}-${index}`}
                 className="grid grid-cols-1 border-t-[2px] gap-2 pt-4"
               >
                 {exerciseFields.map((exerciseField) => (

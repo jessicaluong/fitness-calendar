@@ -17,7 +17,7 @@ export default function Header({ handleAddActivity }: HeaderProps) {
       </div>
       <div className="space-x-2 flex items-center">
         <ModeToggle />
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="rounded">
           J
         </Button>
       </div>

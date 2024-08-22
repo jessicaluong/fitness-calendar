@@ -61,15 +61,19 @@ export function AddActivityDialog({
 }: AddActivityDialogProps) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
 
+  const defaultValues = {
+    activity: "",
+    minutes: 30,
+    category: undefined,
+    exercises: [],
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      activity: "",
-      minutes: 30,
-      category: undefined,
-      exercises: [],
-    },
+    defaultValues,
   });
+
+  const [open, setOpen] = useState(false);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const activity: Activity = {
@@ -88,7 +92,11 @@ export function AddActivityDialog({
 
     handleAddActivity(newActivity);
     console.log(values);
-    // TODO: close dialog after submit and reset form
+    setExercises([]);
+
+    console.log(exercises);
+    setOpen(false);
+    form.reset(defaultValues);
   }
 
   const exerciseFields = [
@@ -99,7 +107,7 @@ export function AddActivityDialog({
   ];
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>Add</Button>
       </DialogTrigger>

@@ -107,10 +107,26 @@ function App() {
   const handleAddActivity = (newActivity: CategoryData) => {
     setCalendarData((prevData) => {
       const updatedData = { ...prevData };
+
+      // Check if date exists
       if (!updatedData[selectedDate]) {
         updatedData[selectedDate] = [];
       }
-      updatedData[selectedDate].push(newActivity);
+
+      const existingCategoryIndex = updatedData[selectedDate].findIndex(
+        (item) => item.category === newActivity.category
+      );
+
+      if (existingCategoryIndex !== -1) {
+        // Add new activity to existing category
+        updatedData[selectedDate][existingCategoryIndex].activities.push(
+          ...newActivity.activities
+        );
+      } else {
+        // Add new activity to new category
+        updatedData[selectedDate].push(newActivity);
+      }
+
       return updatedData;
     });
   };

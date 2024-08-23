@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CategoryData, CATEGORIES, Exercise, Activity } from "@/lib/types";
+import { CategoryData, CATEGORIES, Activity } from "@/lib/types";
 import { useState } from "react";
 
 const exerciseSchema = z.object({
@@ -59,8 +59,6 @@ type AddActivityDialogProps = {
 export function AddActivityDialog({
   handleAddActivity,
 }: AddActivityDialogProps) {
-  const [exercises, setExercises] = useState<Exercise[]>([]);
-
   const defaultValues = {
     activity: "",
     minutes: 30,
@@ -71,6 +69,11 @@ export function AddActivityDialog({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "exercises",
   });
 
   const [open, setOpen] = useState(false);
@@ -92,9 +95,6 @@ export function AddActivityDialog({
 
     handleAddActivity(newActivity);
     console.log(values);
-    setExercises([]);
-
-    console.log(exercises);
     setOpen(false);
     form.reset(defaultValues);
   }
@@ -180,9 +180,9 @@ export function AddActivityDialog({
                 </FormItem>
               )}
             />
-            {exercises.map((exercise, index) => (
+            {fields.map((field, index) => (
               <div
-                key={`${exercise.name}-${index}`}
+                key={`${field.id}`}
                 className="grid grid-cols-1 border-t-[2px] gap-2 pt-4"
               >
                 {exerciseFields.map((exerciseField) => (
@@ -226,6 +226,9 @@ export function AddActivityDialog({
                     )}
                   />
                 ))}
+                <Button variant="secondary" onClick={() => remove(index)}>
+                  Remove Exercise
+                </Button>
               </div>
             ))}
 
@@ -233,30 +236,17 @@ export function AddActivityDialog({
               <Button
                 variant="outline"
                 onClick={() => {
-                  const newExercise: Exercise = {
+                  append({
                     name: "",
                     sets: 0,
                     reps: 0,
                     weight: 0,
-                  };
-                  form.setValue(`exercises.${exercises.length}`, newExercise);
-                  setExercises([...exercises, newExercise]);
+                  });
                 }}
               >
                 Add Exercise
               </Button>
-              {exercises.length > 0 && (
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    const updatedExercises = exercises.slice(0, -1);
-                    setExercises(updatedExercises);
-                    form.setValue(`exercises`, updatedExercises);
-                  }}
-                >
-                  Remove Exercise
-                </Button>
-              )}
+
               <Button type="submit">Save</Button>
             </DialogFooter>
           </form>

@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const CATEGORIES = ["cardio", "yoga", "gym", "hiking"] as const;
 export type Category = (typeof CATEGORIES)[number];
 export type CategoryColors = {
@@ -31,3 +33,28 @@ export type CategoryData = {
 export type CalendarData = {
   [date: string]: CategoryData[];
 };
+
+export const exerciseSchema = z.object({
+  name: z.string().min(1, "Exercise name is required"),
+  sets: z.coerce.number(),
+  reps: z.coerce.number(),
+  weight: z.coerce.number(),
+  id: z.string(),
+});
+
+export const formSchema = z.object({
+  activity: z.string().min(1, {
+    message: "Required",
+  }),
+  minutes: z.coerce
+    .number({
+      message: "Minutes must be a valid number.",
+    })
+    .min(1, {
+      message: "Minutes must greater than 0.",
+    }),
+  category: z.enum(CATEGORIES),
+  exercises: z.array(exerciseSchema),
+});
+
+export type FormSchema = z.infer<typeof formSchema>;

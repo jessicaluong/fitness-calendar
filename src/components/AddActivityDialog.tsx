@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CategoryData, CATEGORIES, Activity } from "@/lib/types";
+import { CATEGORIES, Activity, Category } from "@/lib/types";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -55,7 +55,7 @@ const formSchema = z.object({
 });
 
 type AddActivityDialogProps = {
-  handleAddActivity: (newActivity: CategoryData) => void;
+  handleAddActivity: (newActivity: Activity, newCategoryName: Category) => void;
 };
 
 export function AddActivityDialog({
@@ -81,25 +81,19 @@ export function AddActivityDialog({
   const [open, setOpen] = useState(false);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const activity: Activity = {
+    const newActivity: Activity = {
       id: uuidv4(),
       minutes: values.minutes,
       name: values.activity,
     };
 
     if (values.exercises && values.exercises.length > 0) {
-      activity.exercises = values.exercises;
+      newActivity.exercises = values.exercises;
     }
-
-    const newActivity: CategoryData = {
-      id: uuidv4(),
-      category: values.category,
-      activities: [activity],
-    };
 
     console.log(values);
     console.log(newActivity);
-    handleAddActivity(newActivity);
+    handleAddActivity(newActivity, values.category);
     setOpen(false);
     form.reset(defaultValues);
   }

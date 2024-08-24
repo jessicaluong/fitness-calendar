@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import ExerciseCard from "./ExerciseCard";
 import { getColorClasses } from "@/lib/utils";
-import { Color, Theme, Activity, CategoryData } from "@/lib/types";
+import { Color, Theme, Activity, CategoryData, Category } from "@/lib/types";
 import EditActivityDialog from "./EditActivityDialog";
 import { useState } from "react";
 
@@ -10,7 +10,11 @@ type ActivityCardProps = {
   color: Color;
   theme: Theme;
   categoryData: CategoryData;
-  handleEditActivity: (activityToEdit: Activity, categoryId: string) => void;
+  handleEditActivity: (
+    activityToEdit: Activity,
+    oldCategoryId: string,
+    newCategory: Category
+  ) => void;
 };
 
 export default function ActivityCard({

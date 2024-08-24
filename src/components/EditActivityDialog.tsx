@@ -26,7 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CategoryData, CATEGORIES, Activity } from "@/lib/types";
+import { CategoryData, CATEGORIES, Activity, Category } from "@/lib/types";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -58,7 +58,11 @@ type EditActivityDialogProps = {
   onOpenChange: (open: boolean) => void;
   activity: Activity;
   categoryData: CategoryData;
-  handleEditActivity: (activityToEdit: Activity, categoryId: string) => void;
+  handleEditActivity: (
+    activityToEdit: Activity,
+    oldCategoryId: string,
+    newCategory: Category
+  ) => void;
 };
 
 export default function EditActivityDialog({
@@ -85,6 +89,8 @@ export default function EditActivityDialog({
     name: "exercises",
   });
 
+  const testlog = () => console.log("test");
+
   useEffect(() => {
     if (activity) {
       form.reset({
@@ -107,9 +113,10 @@ export default function EditActivityDialog({
       activityToEdit.exercises = values.exercises;
     }
 
+    console.log("Here");
     console.log(values);
     console.log(activityToEdit);
-    handleEditActivity(activityToEdit, categoryData.id);
+    handleEditActivity(activityToEdit, categoryData.id, values.category);
     onOpenChange(false);
     form.reset(defaultValues);
   }
@@ -192,7 +199,9 @@ export default function EditActivityDialog({
                 </FormItem>
               )}
             />
-            <Button variant="secondary">Remove Activity</Button>
+            <Button variant="secondary" onClick={() => testlog()}>
+              Remove Activity
+            </Button>
             {fields.map((field, index) => (
               <div
                 key={`${field.id}`}

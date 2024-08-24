@@ -3,8 +3,13 @@ import Calendar from "./Calendar";
 import Header from "./Header";
 import { useState } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
-import { CalendarData, CategoryColors } from "@/lib/types";
-import { CategoryData } from "@/lib/types";
+import {
+  CalendarData,
+  CategoryColors,
+  CategoryData,
+  Activity,
+} from "@/lib/types";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const categoryColors: CategoryColors = {
@@ -27,79 +32,137 @@ function App() {
   };
 
   const [calendarData, setCalendarData] = useState<CalendarData>({
-    "2024-07-21": [
+    "2024-08-21": [
       {
+        id: uuidv4(),
         category: "cardio",
         activities: [
-          { minutes: 30, name: "walking workout" },
-          { minutes: 15, name: "low impact aerobics" },
+          { id: uuidv4(), minutes: 30, name: "walking workout" },
+          { id: uuidv4(), minutes: 15, name: "low impact aerobics" },
         ],
       },
       {
+        id: uuidv4(),
         category: "yoga",
-        activities: [{ minutes: 45, name: "hatha" }],
+        activities: [{ id: uuidv4(), minutes: 45, name: "hatha" }],
       },
       {
+        id: uuidv4(),
         category: "hiking",
-        activities: [{ minutes: 60, name: "grouse grind" }],
+        activities: [{ id: uuidv4(), minutes: 60, name: "grouse grind" }],
       },
       {
+        id: uuidv4(),
         category: "gym",
         activities: [
           {
+            id: uuidv4(),
             minutes: 60,
             name: "upper body",
             exercises: [
-              { sets: 3, reps: 10, name: "back rows", weight: 10 },
-              { sets: 3, reps: 12, name: "lat pull down", weight: 15 },
-              { sets: 4, reps: 10, name: "tricep extensions", weight: 8 },
-              { sets: 3, reps: 12, name: "lateral raises", weight: 5 },
+              {
+                id: uuidv4(),
+                sets: 3,
+                reps: 10,
+                name: "back rows",
+                weight: 10,
+              },
+              {
+                id: uuidv4(),
+                sets: 3,
+                reps: 12,
+                name: "lat pull down",
+                weight: 15,
+              },
+              {
+                id: uuidv4(),
+                sets: 4,
+                reps: 10,
+                name: "tricep extensions",
+                weight: 8,
+              },
+              {
+                id: uuidv4(),
+                sets: 3,
+                reps: 12,
+                name: "lateral raises",
+                weight: 5,
+              },
             ],
           },
         ],
       },
     ],
-    "2024-07-22": [
+    "2024-08-22": [
       {
+        id: uuidv4(),
         category: "cardio",
         activities: [
-          { minutes: 30, name: "walking workout" },
-          { minutes: 15, name: "low impact aerobics" },
+          { id: uuidv4(), minutes: 30, name: "walking workout" },
+          { id: uuidv4(), minutes: 15, name: "low impact aerobics" },
         ],
       },
     ],
-    "2024-07-23": [
-      {
-        category: "hiking",
-        activities: [
-          { minutes: 60, name: "grouse grind" },
-          { minutes: 60, name: "grouse grind" },
-        ],
-      },
-    ],
-
-    "2024-08-01": [
-      {
-        category: "gym",
-        activities: [
-          {
-            minutes: 60,
-            name: "upper body",
-            exercises: [
-              { sets: 3, reps: 10, name: "back rows", weight: 10 },
-              { sets: 3, reps: 12, name: "lat pull down", weight: 15 },
-              { sets: 4, reps: 10, name: "tricep extensions", weight: 8 },
-              { sets: 3, reps: 12, name: "lateral raises", weight: 5 },
-            ],
-          },
-        ],
-      },
-    ],
-
     "2024-08-23": [
       {
+        id: uuidv4(),
         category: "hiking",
-        activities: [{ minutes: 60, name: "grouse grind" }],
+        activities: [
+          { id: uuidv4(), minutes: 60, name: "grouse grind" },
+          { id: uuidv4(), minutes: 60, name: "grouse grind" },
+        ],
+      },
+    ],
+
+    "2024-09-01": [
+      {
+        id: uuidv4(),
+        category: "gym",
+        activities: [
+          {
+            id: uuidv4(),
+            minutes: 60,
+            name: "upper body",
+            exercises: [
+              {
+                id: uuidv4(),
+                sets: 3,
+                reps: 10,
+                name: "back rows",
+                weight: 10,
+              },
+              {
+                id: uuidv4(),
+                sets: 3,
+                reps: 12,
+                name: "lat pull down",
+                weight: 15,
+              },
+              {
+                id: uuidv4(),
+                sets: 4,
+                reps: 10,
+                name: "tricep extensions",
+                weight: 8,
+              },
+              {
+                id: uuidv4(),
+                sets: 3,
+                reps: 12,
+                name: "lateral raises",
+                weight: 5,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+
+    "2024-09-23": [
+      {
+        id: uuidv4(),
+        category: "hiking",
+        activities: [{ id: uuidv4(), minutes: 60, name: "grouse grind" }],
       },
     ],
   });
@@ -131,6 +194,30 @@ function App() {
     });
   };
 
+  const handleEditActivity = (activityToEdit: Activity, categoryId: string) => {
+    setCalendarData((prevData) => {
+      const updatedData = { ...prevData };
+
+      const categoryIndex = updatedData[selectedDate].findIndex(
+        (category) => category.id === categoryId
+      );
+
+      // TODO: handle editing category
+      // TODO: handle removing activity
+      if (categoryIndex !== -1) {
+        const activityIndex = updatedData[selectedDate][
+          categoryIndex
+        ].activities.findIndex((activity) => activity.id === activityToEdit.id);
+
+        if (activityIndex !== -1) {
+          updatedData[selectedDate][categoryIndex].activities[activityIndex] =
+            activityToEdit;
+        }
+      }
+      return updatedData;
+    });
+  };
+
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <main className="flex justify-center w-full p-[5px] md:p-[10px]">
@@ -149,12 +236,13 @@ function App() {
             {calendarData[selectedDate] &&
             calendarData[selectedDate].length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center ">
-                {calendarData[selectedDate]?.map((event, index) => (
+                {calendarData[selectedDate]?.map((event) => (
                   <CategoryCard
-                    key={index}
-                    category={event.category}
+                    key={event.id}
+                    categoryData={event}
                     color={categoryColors[event.category]}
                     activities={event.activities}
+                    handleEditActivity={handleEditActivity}
                   />
                 ))}
               </div>

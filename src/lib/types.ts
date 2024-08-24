@@ -8,6 +8,7 @@ export type Theme = "dark" | "light" | "system";
 export type Variant = "calendar" | "category" | "activity" | "exercise";
 
 export type Exercise = {
+  id: string;
   name: string;
   sets: number;
   reps: number;
@@ -15,12 +16,14 @@ export type Exercise = {
 };
 
 export type Activity = {
+  id: string;
   name: string;
   minutes: number;
   exercises?: Exercise[];
 };
 
 export type CategoryData = {
+  id: string;
   category: Category;
   activities: Activity[];
 };

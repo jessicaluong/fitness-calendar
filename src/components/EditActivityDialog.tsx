@@ -104,11 +104,12 @@ export default function EditActivityDialog({
     };
 
     if (values.exercises && values.exercises.length > 0) {
-      activity.exercises = values.exercises;
+      activityToEdit.exercises = values.exercises;
     }
 
-    handleEditActivity(activityToEdit, categoryData.id);
     console.log(values);
+    console.log(activityToEdit);
+    handleEditActivity(activityToEdit, categoryData.id);
     onOpenChange(false);
     form.reset(defaultValues);
   }

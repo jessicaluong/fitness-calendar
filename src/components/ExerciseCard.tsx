@@ -19,7 +19,7 @@ export default function ExerciseCard({
         <CardHeader>
           <CardTitle left>
             {exercises.map((exercise) => (
-              <p>
+              <p key={exercise.id}>
                 {exercise.sets} x {exercise.reps} {exercise.name} (
                 {exercise.weight} lbs)
               </p>

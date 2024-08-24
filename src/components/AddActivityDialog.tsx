@@ -29,12 +29,14 @@ import {
 } from "@/components/ui/select";
 import { CategoryData, CATEGORIES, Activity } from "@/lib/types";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const exerciseSchema = z.object({
   name: z.string().min(1, "Exercise name is required"),
   sets: z.coerce.number(),
   reps: z.coerce.number(),
   weight: z.coerce.number(),
+  id: z.string(),
 });
 
 const formSchema = z.object({
@@ -80,6 +82,7 @@ export function AddActivityDialog({
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const activity: Activity = {
+      id: uuidv4(),
       minutes: values.minutes,
       name: values.activity,
     };
@@ -89,12 +92,14 @@ export function AddActivityDialog({
     }
 
     const newActivity: CategoryData = {
+      id: uuidv4(),
       category: values.category,
       activities: [activity],
     };
 
-    handleAddActivity(newActivity);
     console.log(values);
+    console.log(newActivity);
+    handleAddActivity(newActivity);
     setOpen(false);
     form.reset(defaultValues);
   }
@@ -241,6 +246,7 @@ export function AddActivityDialog({
                     sets: 0,
                     reps: 0,
                     weight: 0,
+                    id: uuidv4(),
                   });
                 }}
               >

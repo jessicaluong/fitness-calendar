@@ -13,6 +13,10 @@ type CategoryCardProps = {
     oldCategoryId: string,
     newCategory: Category
   ) => void;
+  handleRemoveActivity: (
+    activityId: string,
+    oldCategoryData: CategoryData
+  ) => void;
 };
 
 export default function CategoryCard({
@@ -20,6 +24,7 @@ export default function CategoryCard({
   color,
   activities,
   handleEditActivity,
+  handleRemoveActivity,
 }: CategoryCardProps) {
   const { theme } = useTheme();
   return (
@@ -37,6 +42,7 @@ export default function CategoryCard({
               theme={theme}
               categoryData={categoryData}
               handleEditActivity={handleEditActivity}
+              handleRemoveActivity={handleRemoveActivity}
             />
           ))}
       </CardContent>

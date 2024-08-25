@@ -27,6 +27,10 @@ type EditActivityDialogProps = {
     oldCategoryId: string,
     newCategory: Category
   ) => void;
+  handleRemoveActivity: (
+    activityId: string,
+    oldCategoryData: CategoryData
+  ) => void;
 };
 
 export default function EditActivityDialog({
@@ -35,6 +39,7 @@ export default function EditActivityDialog({
   activity,
   categoryData,
   handleEditActivity,
+  handleRemoveActivity,
 }: EditActivityDialogProps) {
   const defaultValues = {
     activity: activity?.name || "",
@@ -52,8 +57,6 @@ export default function EditActivityDialog({
     control: form.control,
     name: "exercises",
   });
-
-  const testlog = () => console.log("test");
 
   useEffect(() => {
     if (activity) {
@@ -77,13 +80,16 @@ export default function EditActivityDialog({
       activityToEdit.exercises = values.exercises;
     }
 
-    console.log("Here");
-    console.log(values);
-    console.log(activityToEdit);
     handleEditActivity(activityToEdit, categoryData.id, values.category);
     onOpenChange(false);
     form.reset(defaultValues);
   }
+
+  const removeActivity = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleRemoveActivity(activity.id, categoryData);
+    onOpenChange(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -98,7 +104,7 @@ export default function EditActivityDialog({
             className="grid gap-4 py-2"
           >
             <ActivityFormFields form={form} />
-            <Button variant="secondary" onClick={() => testlog()}>
+            <Button variant="secondary" onClick={removeActivity}>
               Remove Activity
             </Button>
             {fields.map((field, index) => (

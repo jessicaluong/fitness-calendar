@@ -15,6 +15,10 @@ type ActivityCardProps = {
     oldCategoryId: string,
     newCategory: Category
   ) => void;
+  handleRemoveActivity: (
+    activityId: string,
+    oldCategoryData: CategoryData
+  ) => void;
 };
 
 export default function ActivityCard({
@@ -23,6 +27,7 @@ export default function ActivityCard({
   theme,
   categoryData,
   handleEditActivity,
+  handleRemoveActivity,
 }: ActivityCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -53,6 +58,7 @@ export default function ActivityCard({
         activity={activity}
         categoryData={categoryData}
         handleEditActivity={handleEditActivity}
+        handleRemoveActivity={handleRemoveActivity}
       />
     </div>
   );

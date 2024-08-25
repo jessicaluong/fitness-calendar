@@ -212,30 +212,29 @@ function App() {
 
   const removeActivity = (
     prevData: CalendarData,
-    activityToEdit: Activity,
+    activityId: string,
     oldCategoryData: CategoryData
   ) => {
     const updatedData = { ...prevData };
 
     oldCategoryData.activities = oldCategoryData.activities.filter(
-      (activity) => activity.id !== activityToEdit.id
+      (activity) => activity.id !== activityId
     );
     // If no more activities in that category, then delete it
     if (oldCategoryData.activities.length <= 0) {
       updatedData[selectedDate] = updatedData[selectedDate].filter(
         (category) => category.id !== oldCategoryData.id
       );
-      console.log("empty");
     }
     return updatedData;
   };
 
   const handleRemoveActivity = (
-    activityToEdit: Activity,
+    activityId: string,
     oldCategoryData: CategoryData
   ) => {
     setCalendarData((prevData) =>
-      removeActivity(prevData, activityToEdit, oldCategoryData)
+      removeActivity(prevData, activityId, oldCategoryData)
     );
   };
 
@@ -257,26 +256,21 @@ function App() {
       console.log(newCategoryName);
 
       if (oldCategoryName === newCategoryName) {
-        console.log("if case");
-
         // Category not changed, update activity in old category
         const activityIndex = oldCategoryData.activities.findIndex(
           (activity) => activity.id === activityToEdit.id
         );
         oldCategoryData.activities[activityIndex] = activityToEdit;
       } else {
-        console.log("else case");
-
         // Category changed, remove activity from old category and add it to new category
         updatedData = removeActivity(
           updatedData,
-          activityToEdit,
+          activityToEdit.id,
           oldCategoryData
         );
         updatedData = addActivity(updatedData, activityToEdit, newCategoryName);
       }
 
-      // TODO: handle removing activity
       return updatedData;
     });
   };
@@ -306,6 +300,7 @@ function App() {
                     color={categoryColors[event.category]}
                     activities={event.activities}
                     handleEditActivity={handleEditActivity}
+                    handleRemoveActivity={handleRemoveActivity}
                   />
                 ))}
               </div>

@@ -29,6 +29,7 @@ export default function Calendar({
       <div className="flex flex-wrap gap-0.5 md:gap-1 justify-center">
         {dayEvents.map((event) => (
           <Square
+            key={event.id}
             color={getColorClasses(
               categoryColors[event.category],
               "calendar",

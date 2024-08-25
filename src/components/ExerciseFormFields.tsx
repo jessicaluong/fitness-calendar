@@ -49,13 +49,13 @@ export default function ExerciseFormFields({
                     type={exerciseField.name === "name" ? "text" : "number"}
                     placeholder={exerciseField.placeholder}
                     {...field}
-                    onChange={(e) => {
-                      const value =
-                        exerciseField.name === "name"
-                          ? e.target.value
-                          : e.target.valueAsNumber;
-                      field.onChange(value);
-                    }}
+                    // onChange={(e) => {
+                    //   const value =
+                    //     exerciseField.name === "name"
+                    //       ? e.target.value
+                    //       : e.target.valueAsNumber;
+                    //   field.onChange(value);
+                    // }}
                   />
                 </FormControl>
               </div>

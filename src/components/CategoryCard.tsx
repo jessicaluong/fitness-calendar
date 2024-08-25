@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ActivityCard from "./ActivityCard";
 import { getColorClasses } from "@/lib/utils";
-import { useTheme } from "@/components/theme-provider";
 import { Activity, Category, CategoryData, Color } from "@/lib/types";
+import { useTheme } from "@/contexts/theme-provider";
 
 type CategoryCardProps = {
   categoryData: CategoryData;

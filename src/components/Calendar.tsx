@@ -3,7 +3,7 @@ import Square from "./Square";
 import "./CustomCalendar.css";
 import { getColorClasses } from "@/lib/utils";
 import { CalendarData, CategoryColors } from "@/lib/types";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/contexts/theme-provider";
 
 type CalendarProps = {
   calendarData: CalendarData;

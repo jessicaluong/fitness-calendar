@@ -2,7 +2,7 @@ import CategoryCard from "./CategoryCard";
 import Calendar from "./Calendar";
 import Header from "./Header";
 import { useState } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/contexts/theme-provider";
 import {
   CalendarData,
   CategoryColors,

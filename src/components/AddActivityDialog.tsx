@@ -13,7 +13,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Activity, Category, formSchema } from "@/lib/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ActivityFormFields from "./ActivityFormFields";
 import ExerciseFormFields from "./ExerciseFormFields";
@@ -44,6 +44,10 @@ export function AddActivityDialog({
 
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [open]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     const newActivity: Activity = {
       id: uuidv4(),
@@ -55,8 +59,6 @@ export function AddActivityDialog({
       newActivity.exercises = values.exercises;
     }
 
-    console.log(values);
-    console.log(newActivity);
     handleAddActivity(newActivity, values.category);
     setOpen(false);
     form.reset(defaultValues);

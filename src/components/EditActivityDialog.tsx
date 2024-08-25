@@ -59,15 +59,8 @@ export default function EditActivityDialog({
   });
 
   useEffect(() => {
-    if (activity) {
-      form.reset({
-        activity: activity.name,
-        minutes: activity.minutes,
-        category: categoryData.category,
-        exercises: activity.exercises || [],
-      });
-    }
-  }, [activity, categoryData, form]);
+    form.reset(defaultValues);
+  }, [open]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const activityToEdit: Activity = {

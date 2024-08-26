@@ -1,30 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ActivityCard from "./ActivityCard";
 import { getColorClasses } from "@/lib/utils";
-import { Activity, Category, CategoryData, Color } from "@/lib/types";
+import { Activity, CategoryData, Color } from "@/lib/types";
 import { useTheme } from "@/contexts/theme-provider";
 
 type CategoryCardProps = {
   categoryData: CategoryData;
   color: Color;
   activities: Activity[];
-  handleEditActivity: (
-    activityToEdit: Activity,
-    oldCategoryId: string,
-    newCategory: Category
-  ) => void;
-  handleRemoveActivity: (
-    activityId: string,
-    oldCategoryData: CategoryData
-  ) => void;
 };
 
 export default function CategoryCard({
   categoryData,
   color,
   activities,
-  handleEditActivity,
-  handleRemoveActivity,
 }: CategoryCardProps) {
   const { theme } = useTheme();
   return (
@@ -41,8 +30,6 @@ export default function CategoryCard({
               color={color}
               theme={theme}
               categoryData={categoryData}
-              handleEditActivity={handleEditActivity}
-              handleRemoveActivity={handleRemoveActivity}
             />
           ))}
       </CardContent>

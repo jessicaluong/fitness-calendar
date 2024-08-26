@@ -2,25 +2,17 @@ import ReactCalendar from "react-calendar";
 import Square from "./Square";
 import "./CustomCalendar.css";
 import { getColorClasses } from "@/lib/utils";
-import { CalendarData, CategoryColors } from "@/lib/types";
 import { useTheme } from "@/contexts/theme-provider";
-
-type CalendarProps = {
-  calendarData: CalendarData;
-  categoryColors: CategoryColors;
-  handleClickDate: (date: string) => void;
-};
+import { useCalendarDataContext } from "@/lib/hooks";
 
 type TileContentProps = {
   date: Date;
 };
 
-export default function Calendar({
-  calendarData,
-  categoryColors,
-  handleClickDate,
-}: CalendarProps) {
+export default function Calendar() {
   const { theme } = useTheme();
+  const { calendarData, categoryColors, handleClickDate } =
+    useCalendarDataContext();
 
   const tileContent = ({ date }: TileContentProps) => {
     const dateStr = date.toISOString().split("T")[0];

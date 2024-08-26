@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import ExerciseCard from "./ExerciseCard";
 import { getColorClasses } from "@/lib/utils";
-import { Color, Theme, Activity, CategoryData, Category } from "@/lib/types";
+import { Color, Theme, Activity, CategoryData } from "@/lib/types";
 import EditActivityDialog from "./EditActivityDialog";
 import { useState } from "react";
 
@@ -10,15 +10,6 @@ type ActivityCardProps = {
   color: Color;
   theme: Theme;
   categoryData: CategoryData;
-  handleEditActivity: (
-    activityToEdit: Activity,
-    oldCategoryId: string,
-    newCategory: Category
-  ) => void;
-  handleRemoveActivity: (
-    activityId: string,
-    oldCategoryData: CategoryData
-  ) => void;
 };
 
 export default function ActivityCard({
@@ -26,8 +17,6 @@ export default function ActivityCard({
   color,
   theme,
   categoryData,
-  handleEditActivity,
-  handleRemoveActivity,
 }: ActivityCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -38,6 +27,7 @@ export default function ActivityCard({
         onClick={() => {
           setIsDialogOpen(true);
         }}
+        className="cursor-pointer"
       >
         <CardHeader>
           <CardTitle>
@@ -57,8 +47,6 @@ export default function ActivityCard({
         onOpenChange={setIsDialogOpen}
         activity={activity}
         categoryData={categoryData}
-        handleEditActivity={handleEditActivity}
-        handleRemoveActivity={handleRemoveActivity}
       />
     </div>
   );

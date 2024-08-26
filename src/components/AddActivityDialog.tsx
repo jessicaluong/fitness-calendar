@@ -12,19 +12,16 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Activity, Category, formSchema } from "@/lib/types";
+import { Activity, formSchema } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ActivityFormFields from "./ActivityFormFields";
 import ExerciseFormFields from "./ExerciseFormFields";
+import { useCalendarDataContext } from "@/lib/hooks";
 
-type AddActivityDialogProps = {
-  handleAddActivity: (newActivity: Activity, newCategoryName: Category) => void;
-};
+export function AddActivityDialog() {
+  const { handleAddActivity } = useCalendarDataContext();
 
-export function AddActivityDialog({
-  handleAddActivity,
-}: AddActivityDialogProps) {
   const defaultValues = {
     activity: "",
     minutes: 30,

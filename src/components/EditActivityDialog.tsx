@@ -11,26 +11,18 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { CategoryData, Activity, Category, formSchema } from "@/lib/types";
+import { CategoryData, Activity, formSchema } from "@/lib/types";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ActivityFormFields from "./ActivityFormFields";
 import ExerciseFormFields from "./ExerciseFormFields";
+import { useCalendarDataContext } from "@/lib/hooks";
 
 type EditActivityDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   activity: Activity;
   categoryData: CategoryData;
-  handleEditActivity: (
-    activityToEdit: Activity,
-    oldCategoryId: string,
-    newCategory: Category
-  ) => void;
-  handleRemoveActivity: (
-    activityId: string,
-    oldCategoryData: CategoryData
-  ) => void;
 };
 
 export default function EditActivityDialog({
@@ -38,9 +30,9 @@ export default function EditActivityDialog({
   onOpenChange,
   activity,
   categoryData,
-  handleEditActivity,
-  handleRemoveActivity,
 }: EditActivityDialogProps) {
+  const { handleEditActivity, handleRemoveActivity } = useCalendarDataContext();
+
   const defaultValues = {
     activity: activity?.name || "",
     minutes: activity?.minutes || 30,

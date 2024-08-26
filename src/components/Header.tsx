@@ -1,17 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./mode-toggle";
 import { AddActivityDialog } from "./AddActivityDialog";
-import { Activity, Category } from "@/lib/types";
 
-type HeaderProps = {
-  handleAddActivity: (newActivity: Activity, newCategoryName: Category) => void;
-};
-
-export default function Header({ handleAddActivity }: HeaderProps) {
+export default function Header() {
   return (
     <section className="flex pb-[5px] md:pb-[10px]">
       <div className="space-x-2 me-auto">
-        <AddActivityDialog handleAddActivity={handleAddActivity} />
+        <AddActivityDialog />
       </div>
       <div className="space-x-2 flex items-center">
         <ModeToggle />

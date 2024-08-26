@@ -103,7 +103,7 @@ export default function EditActivityDialog({
                 </Button>
               </div>
             ))}
-            <DialogFooter className="flex flex-col sm:flex-row gap-2 border-t-[2px] pt-4 sm:border-0 sm:pt-0">
+            <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 border-t-[2px] pt-4 sm:border-0 sm:pt-0">
               <Button
                 variant="outline"
                 onClick={() => {

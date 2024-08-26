@@ -64,7 +64,7 @@ export function AddActivityDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Add</Button>
+        <Button>New Activity</Button>
       </DialogTrigger>
       <DialogContent className="max-h-screen sm:max-h-[90vh] overflow-y-auto">
         <DialogHeader>

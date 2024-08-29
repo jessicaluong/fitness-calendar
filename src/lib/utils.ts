@@ -1,13 +1,13 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { Color, Theme, Variant } from "./types";
+import { Theme, Variant } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 export function getColorClasses(
-  color: Color,
+  color: string,
   variant: Variant,
   theme: Theme
 ): string {

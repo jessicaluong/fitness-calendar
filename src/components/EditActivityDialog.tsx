@@ -11,32 +11,35 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { CategoryData, Activity, formSchema } from "@/lib/types";
+import { Activity, CalendarEntry } from "@/lib/types";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ActivityFormFields from "./ActivityFormFields";
 import ExerciseFormFields from "./ExerciseFormFields";
 import { useCalendarDataContext } from "@/lib/hooks";
+import { createFormSchema } from "@/lib/formSchema";
 
 type EditActivityDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   activity: Activity;
-  categoryData: CategoryData;
+  calendarEntry: CalendarEntry;
 };
 
 export default function EditActivityDialog({
   open,
   onOpenChange,
   activity,
-  categoryData,
+  calendarEntry,
 }: EditActivityDialogProps) {
-  const { handleEditActivity, handleRemoveActivity } = useCalendarDataContext();
+  const { handleEditActivity, handleRemoveActivity, categories } =
+    useCalendarDataContext();
+  const formSchema = createFormSchema(categories);
 
   const defaultValues = {
     activity: activity?.name || "",
     minutes: activity?.minutes || 30,
-    category: categoryData?.category || undefined,
+    category: calendarEntry?.categoryId || undefined,
     exercises: activity?.exercises || [],
   };
 
@@ -65,14 +68,14 @@ export default function EditActivityDialog({
       activityToEdit.exercises = values.exercises;
     }
 
-    handleEditActivity(activityToEdit, categoryData.id, values.category);
+    handleEditActivity(activityToEdit, calendarEntry, values.category);
     onOpenChange(false);
     form.reset(defaultValues);
   }
 
   const removeActivity = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleRemoveActivity(activity.id, categoryData);
+    handleRemoveActivity(activity.id, calendarEntry);
     onOpenChange(false);
   };
 

@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getColorClasses } from "@/lib/utils";
-import { Color, Exercise, Theme } from "@/lib/types";
+import { Exercise, Theme } from "@/lib/types";
 
 type ExerciseCardProps = {
   exercises: Exercise[];
-  color: Color;
+  color: string;
   theme: Theme;
 };
 

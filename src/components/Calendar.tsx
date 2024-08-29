@@ -11,7 +11,7 @@ type TileContentProps = {
 
 export default function Calendar() {
   const { theme } = useTheme();
-  const { calendarData, categoryColors, handleClickDate } =
+  const { calendarData, handleClickDate, getCategoryColor } =
     useCalendarDataContext();
 
   const tileContent = ({ date }: TileContentProps) => {
@@ -21,9 +21,9 @@ export default function Calendar() {
       <div className="flex flex-wrap gap-0.5 md:gap-1 justify-center">
         {dayEvents.map((event) => (
           <Square
-            key={event.id}
+            key={event.categoryId}
             color={getColorClasses(
-              categoryColors[event.category],
+              getCategoryColor(event.categoryId),
               "calendar",
               theme
             )}

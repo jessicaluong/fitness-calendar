@@ -1,25 +1,28 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ActivityCard from "./ActivityCard";
 import { getColorClasses } from "@/lib/utils";
-import { Activity, CategoryData, Color } from "@/lib/types";
+import { Activity, CalendarEntry } from "@/lib/types";
 import { useTheme } from "@/contexts/theme-provider";
+import { useCalendarDataContext } from "@/lib/hooks";
 
 type CategoryCardProps = {
-  categoryData: CategoryData;
-  color: Color;
+  calendarEntry: CalendarEntry;
+  color: string;
   activities: Activity[];
 };
 
 export default function CategoryCard({
-  categoryData,
+  calendarEntry,
   color,
   activities,
 }: CategoryCardProps) {
   const { theme } = useTheme();
+  const { getCategoryName } = useCalendarDataContext();
+
   return (
     <Card background={getColorClasses(color, "category", theme)}>
       <CardHeader>
-        <CardTitle bold>{categoryData.category}</CardTitle>
+        <CardTitle bold>{getCategoryName(calendarEntry.categoryId)}</CardTitle>
       </CardHeader>
       <CardContent>
         {activities &&
@@ -29,7 +32,7 @@ export default function CategoryCard({
               activity={activity}
               color={color}
               theme={theme}
-              categoryData={categoryData}
+              calendarEntry={calendarEntry}
             />
           ))}
       </CardContent>

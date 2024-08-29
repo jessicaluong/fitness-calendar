@@ -12,15 +12,17 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Activity, formSchema } from "@/lib/types";
+import { Activity } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ActivityFormFields from "./ActivityFormFields";
 import ExerciseFormFields from "./ExerciseFormFields";
 import { useCalendarDataContext } from "@/lib/hooks";
+import { createFormSchema } from "@/lib/formSchema";
 
 export function AddActivityDialog() {
-  const { handleAddActivity } = useCalendarDataContext();
+  const { handleAddActivity, categories } = useCalendarDataContext();
+  const formSchema = createFormSchema(categories);
 
   const defaultValues = {
     activity: "",

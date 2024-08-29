@@ -1,22 +1,22 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import ExerciseCard from "./ExerciseCard";
 import { getColorClasses } from "@/lib/utils";
-import { Color, Theme, Activity, CategoryData } from "@/lib/types";
+import { Theme, Activity, CalendarEntry } from "@/lib/types";
 import EditActivityDialog from "./EditActivityDialog";
 import { useState } from "react";
 
 type ActivityCardProps = {
   activity: Activity;
-  color: Color;
+  color: string;
   theme: Theme;
-  categoryData: CategoryData;
+  calendarEntry: CalendarEntry;
 };
 
 export default function ActivityCard({
   activity,
   color,
   theme,
-  categoryData,
+  calendarEntry,
 }: ActivityCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -46,7 +46,7 @@ export default function ActivityCard({
         open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
         activity={activity}
-        categoryData={categoryData}
+        calendarEntry={calendarEntry}
       />
     </div>
   );

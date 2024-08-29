@@ -13,12 +13,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { CATEGORIES, FormSchema } from "@/lib/types";
 import { UseFormReturn } from "react-hook-form";
+import { useCalendarDataContext } from "@/lib/hooks";
+import { FormSchema } from "@/lib/formSchema";
 
 type ActivityFormFieldsProps = { form: UseFormReturn<FormSchema> };
 
 export default function ActivityFormFields({ form }: ActivityFormFieldsProps) {
+  const { categories } = useCalendarDataContext();
+
   return (
     <>
       <FormField
@@ -65,9 +68,10 @@ export default function ActivityFormFields({ form }: ActivityFormFieldsProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {CATEGORIES.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name.charAt(0).toUpperCase() +
+                        category.name.slice(1)}
                     </SelectItem>
                   ))}
                 </SelectContent>

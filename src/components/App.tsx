@@ -4,7 +4,7 @@ import Header from "./Header";
 import { useCalendarDataContext } from "@/lib/hooks";
 
 function App() {
-  const { calendarData, selectedDate, categoryColors } =
+  const { calendarData, selectedDate, getCategoryColor } =
     useCalendarDataContext();
 
   return (
@@ -22,9 +22,9 @@ function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center ">
               {calendarData[selectedDate]?.map((event) => (
                 <CategoryCard
-                  key={event.id}
-                  categoryData={event}
-                  color={categoryColors[event.category]}
+                  key={event.categoryId}
+                  calendarEntry={event}
+                  color={getCategoryColor(event.categoryId)}
                   activities={event.activities}
                 />
               ))}

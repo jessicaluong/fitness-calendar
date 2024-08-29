@@ -6,7 +6,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FormSchema } from "@/lib/types";
+import { FormSchema } from "@/lib/formSchema";
 import { UseFormReturn } from "react-hook-form";
 
 type ExerciseFormFieldsProps = {

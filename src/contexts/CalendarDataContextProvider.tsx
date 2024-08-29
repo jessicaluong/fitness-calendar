@@ -1,27 +1,23 @@
 import { useState, createContext } from "react";
-import {
-  CalendarData,
-  CategoryColors,
-  CategoryData,
-  Activity,
-  Category,
-} from "@/lib/types";
+import { CalendarData, Activity, Category, CalendarEntry } from "@/lib/types";
 import { v4 as uuidv4 } from "uuid";
 
 type DefaultContextType = {
-  categoryColors: CategoryColors;
+  categories: Category[];
+  getCategoryColor: (categoryId: string) => string;
+  getCategoryName: (categoryId: string) => string;
   selectedDate: string;
   handleClickDate: (date: string) => void;
   calendarData: CalendarData;
-  handleAddActivity: (newActivity: Activity, newCategoryName: Category) => void;
+  handleAddActivity: (newActivity: Activity, newCategoryId: string) => void;
   handleEditActivity: (
     activityToEdit: Activity,
-    oldCategoryId: string,
-    newCategory: Category
+    oldCalendarEntry: CalendarEntry,
+    newCategoryId: string
   ) => void;
   handleRemoveActivity: (
     activityId: string,
-    oldCategoryData: CategoryData
+    oldCalendarEntry: CalendarEntry
   ) => void;
 };
 
@@ -36,13 +32,6 @@ export const CalendarDataContext = createContext<DefaultContextType | null>(
 export default function CalendarDataContextProvider({
   children,
 }: CalendarDataContextProviderProps) {
-  const categoryColors: CategoryColors = {
-    cardio: "blue",
-    yoga: "pink",
-    gym: "yellow",
-    hiking: "green",
-  };
-
   const [selectedDate, setSelectedDate] = useState(() => {
     const now = new Date();
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
@@ -55,29 +44,32 @@ export default function CalendarDataContextProvider({
     setSelectedDate(date);
   };
 
+  const [categories, setCategories] = useState<Category[]>([
+    { id: uuidv4(), name: "Cardio", color: "blue" },
+    { id: uuidv4(), name: "Yoga", color: "pink" },
+    { id: uuidv4(), name: "Gym", color: "yellow" },
+    { id: uuidv4(), name: "Hiking", color: "green" },
+  ]);
+
   const [calendarData, setCalendarData] = useState<CalendarData>({
     "2024-08-21": [
       {
-        id: uuidv4(),
-        category: "cardio",
+        categoryId: categories[0].id,
         activities: [
           { id: uuidv4(), minutes: 30, name: "walking workout" },
           { id: uuidv4(), minutes: 15, name: "low impact aerobics" },
         ],
       },
       {
-        id: uuidv4(),
-        category: "yoga",
+        categoryId: categories[1].id,
         activities: [{ id: uuidv4(), minutes: 45, name: "hatha" }],
       },
       {
-        id: uuidv4(),
-        category: "hiking",
+        categoryId: categories[3].id,
         activities: [{ id: uuidv4(), minutes: 60, name: "grouse grind" }],
       },
       {
-        id: uuidv4(),
-        category: "gym",
+        categoryId: categories[2].id,
         activities: [
           {
             id: uuidv4(),
@@ -119,8 +111,7 @@ export default function CalendarDataContextProvider({
     ],
     "2024-08-22": [
       {
-        id: uuidv4(),
-        category: "cardio",
+        categoryId: categories[0].id,
         activities: [
           { id: uuidv4(), minutes: 30, name: "walking workout" },
           { id: uuidv4(), minutes: 15, name: "low impact aerobics" },
@@ -129,8 +120,7 @@ export default function CalendarDataContextProvider({
     ],
     "2024-08-23": [
       {
-        id: uuidv4(),
-        category: "hiking",
+        categoryId: categories[3].id,
         activities: [
           { id: uuidv4(), minutes: 60, name: "grouse grind" },
           { id: uuidv4(), minutes: 60, name: "grouse grind" },
@@ -140,8 +130,7 @@ export default function CalendarDataContextProvider({
 
     "2024-09-01": [
       {
-        id: uuidv4(),
-        category: "gym",
+        categoryId: categories[2].id,
         activities: [
           {
             id: uuidv4(),
@@ -184,17 +173,26 @@ export default function CalendarDataContextProvider({
 
     "2024-09-23": [
       {
-        id: uuidv4(),
-        category: "hiking",
+        categoryId: categories[3].id,
         activities: [{ id: uuidv4(), minutes: 60, name: "grouse grind" }],
       },
     ],
   });
 
+  const getCategoryColor = (categoryId: string) => {
+    const category = categories.find((category) => category.id === categoryId);
+    return category ? category.color : "gray";
+  };
+
+  const getCategoryName = (categoryId: string) => {
+    const category = categories.find((category) => category.id === categoryId);
+    return category ? category.name : "";
+  };
+
   const addActivity = (
     prevData: CalendarData,
     newActivity: Activity,
-    newCategoryName: Category
+    newCategoryId: string
   ) => {
     const updatedData = { ...prevData };
 
@@ -204,7 +202,7 @@ export default function CalendarDataContextProvider({
     }
 
     const newCategoryIndex = updatedData[selectedDate].findIndex(
-      (item) => item.category === newCategoryName
+      (item) => item.categoryId === newCategoryId
     );
 
     if (newCategoryIndex !== -1) {
@@ -212,9 +210,8 @@ export default function CalendarDataContextProvider({
       updatedData[selectedDate][newCategoryIndex].activities.push(newActivity);
     } else {
       // Category doesn't exist, create new category and add activity to it
-      const newCategoryData: CategoryData = {
-        id: uuidv4(),
-        category: newCategoryName,
+      const newCategoryData: CalendarEntry = {
+        categoryId: newCategoryId,
         activities: [newActivity],
       };
       updatedData[selectedDate].push(newCategoryData);
@@ -222,29 +219,26 @@ export default function CalendarDataContextProvider({
     return updatedData;
   };
 
-  const handleAddActivity = (
-    newActivity: Activity,
-    newCategoryName: Category
-  ) => {
+  const handleAddActivity = (newActivity: Activity, newCategoryId: string) => {
     setCalendarData((prevData) =>
-      addActivity(prevData, newActivity, newCategoryName)
+      addActivity(prevData, newActivity, newCategoryId)
     );
   };
 
   const removeActivity = (
     prevData: CalendarData,
     activityId: string,
-    oldCategoryData: CategoryData
+    oldCalendarEntry: CalendarEntry
   ) => {
     const updatedData = { ...prevData };
 
-    oldCategoryData.activities = oldCategoryData.activities.filter(
+    oldCalendarEntry.activities = oldCalendarEntry.activities.filter(
       (activity) => activity.id !== activityId
     );
     // If no more activities in that category, then delete it
-    if (oldCategoryData.activities.length <= 0) {
+    if (oldCalendarEntry.activities.length <= 0) {
       updatedData[selectedDate] = updatedData[selectedDate].filter(
-        (category) => category.id !== oldCategoryData.id
+        (category) => category.categoryId !== oldCalendarEntry.categoryId
       );
     }
     return updatedData;
@@ -252,53 +246,47 @@ export default function CalendarDataContextProvider({
 
   const handleRemoveActivity = (
     activityId: string,
-    oldCategoryData: CategoryData
+    oldCalendarEntry: CalendarEntry
   ) => {
     setCalendarData((prevData) =>
-      removeActivity(prevData, activityId, oldCategoryData)
+      removeActivity(prevData, activityId, oldCalendarEntry)
     );
   };
 
   const handleEditActivity = (
     activityToEdit: Activity,
-    oldCategoryId: string,
-    newCategoryName: Category
+    oldCalendarEntry: CalendarEntry,
+    newCategoryId: string
   ) => {
     setCalendarData((prevData) => {
       let updatedData = { ...prevData };
 
-      const oldCategoryIndex = updatedData[selectedDate].findIndex(
-        (category) => category.id === oldCategoryId
-      );
-      const oldCategoryData = updatedData[selectedDate][oldCategoryIndex];
-      const oldCategoryName = oldCategoryData.category;
-
-      console.log(oldCategoryName);
-      console.log(newCategoryName);
-
-      if (oldCategoryName === newCategoryName) {
+      if (oldCalendarEntry.categoryId === newCategoryId) {
         // Category not changed, update activity in old category
-        const activityIndex = oldCategoryData.activities.findIndex(
+        const activityIndex = oldCalendarEntry.activities.findIndex(
           (activity) => activity.id === activityToEdit.id
         );
-        oldCategoryData.activities[activityIndex] = activityToEdit;
+        oldCalendarEntry.activities[activityIndex] = activityToEdit;
       } else {
         // Category changed, remove activity from old category and add it to new category
         updatedData = removeActivity(
           updatedData,
           activityToEdit.id,
-          oldCategoryData
+          oldCalendarEntry
         );
-        updatedData = addActivity(updatedData, activityToEdit, newCategoryName);
+        updatedData = addActivity(updatedData, activityToEdit, newCategoryId);
       }
 
       return updatedData;
     });
   };
+
   return (
     <CalendarDataContext.Provider
       value={{
-        categoryColors,
+        categories,
+        getCategoryColor,
+        getCategoryName,
         selectedDate,
         handleClickDate,
         calendarData,

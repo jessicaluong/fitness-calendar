@@ -1,10 +1,3 @@
-// export const CATEGORIES = ["cardio", "yoga", "gym", "hiking"] as const;
-// export type Category = (typeof CATEGORIES)[number];
-// export type CategoryColors = {
-//   [key in Category]: Color;
-// };
-
-// export type Color = "pink" | "blue" | "yellow" | "green"; // TODO: Add more colors
 export type Theme = "dark" | "light" | "system";
 export type Variant = "calendar" | "category" | "activity" | "exercise";
 

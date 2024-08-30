@@ -6,11 +6,7 @@ type DefaultContextType = {
   categories: Category[];
   getCategoryColor: (categoryId: string) => string;
   getCategoryName: (categoryId: string) => string;
-  handleSetCategories: (
-    categoryId: string,
-    newName: string,
-    newColor: string
-  ) => void;
+  handleSetCategories: (newCategories: Category[]) => void;
   selectedDate: string;
   handleClickDate: (date: string) => void;
   calendarData: CalendarData;
@@ -56,18 +52,18 @@ export default function CalendarDataContextProvider({
     { id: uuidv4(), name: "Hiking", color: "green" },
   ]);
 
-  const handleSetCategories = (
-    categoryId: string,
-    newName: string,
-    newColor: string
-  ) => {
+  const handleSetCategories = (newCategories: Category[]) => {
+    setCategories(newCategories);
+  };
+
+  const getCategoryColor = (categoryId: string) => {
     const category = categories.find((category) => category.id === categoryId);
-    // if (category) {
-    //   setCategories((category) => {
-    //     category.name = newName;
-    //     category.color = newColor;
-    //   });
-    // }
+    return category ? category.color : "gray";
+  };
+
+  const getCategoryName = (categoryId: string) => {
+    const category = categories.find((category) => category.id === categoryId);
+    return category ? category.name : "";
   };
 
   const [calendarData, setCalendarData] = useState<CalendarData>({
@@ -197,16 +193,6 @@ export default function CalendarDataContextProvider({
       },
     ],
   });
-
-  const getCategoryColor = (categoryId: string) => {
-    const category = categories.find((category) => category.id === categoryId);
-    return category ? category.color : "gray";
-  };
-
-  const getCategoryName = (categoryId: string) => {
-    const category = categories.find((category) => category.id === categoryId);
-    return category ? category.name : "";
-  };
 
   const addActivity = (
     prevData: CalendarData,

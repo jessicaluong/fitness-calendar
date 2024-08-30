@@ -50,7 +50,7 @@ export default function EditCategoriesDialog({
     defaultValues,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control: form.control,
     name: "categs",
   });
@@ -60,7 +60,9 @@ export default function EditCategoriesDialog({
   }, [open]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    handleSetCategories(values.categs);
+    onOpenChange(false);
+    form.reset(defaultValues);
   }
 
   return (
@@ -93,9 +95,6 @@ export default function EditCategoriesDialog({
                   options={COLORS}
                   placeholder="Select a color"
                 />
-                <Button variant="secondary" onClick={() => remove(index)}>
-                  Remove Category
-                </Button>
               </div>
             ))}
 

@@ -14,6 +14,9 @@ import {
 } from "@/components/ui/select";
 import { Category, Color } from "@/lib/types";
 import { UseFormReturn, FieldPath, FieldValues } from "react-hook-form";
+import Square from "./Square";
+import { getColorClasses } from "@/lib/utils";
+import { useTheme } from "@/contexts/theme-provider";
 
 type FormFieldSelectProps<TFieldValues extends FieldValues> = {
   form: UseFormReturn<TFieldValues>;
@@ -21,6 +24,7 @@ type FormFieldSelectProps<TFieldValues extends FieldValues> = {
   label: string;
   options: Category[] | Color[];
   placeholder: string;
+  colorOption?: boolean;
 };
 
 export default function FormFieldSelect<TFieldValues extends FieldValues>({
@@ -29,7 +33,10 @@ export default function FormFieldSelect<TFieldValues extends FieldValues>({
   label,
   options,
   placeholder,
+  colorOption,
 }: FormFieldSelectProps<TFieldValues>) {
+  const { theme } = useTheme();
+
   return (
     <FormField
       control={form.control}
@@ -51,7 +58,15 @@ export default function FormFieldSelect<TFieldValues extends FieldValues>({
                     typeof option === "string" ? option : option.name;
                   return (
                     <SelectItem key={value} value={value}>
-                      {label.charAt(0).toUpperCase() + label.slice(1)}
+                      {colorOption && (
+                        <Square
+                          color={getColorClasses(value, "calendar", theme)}
+                          className="inline-block w-[8px] h-[8px] md:w-[10px] md:h-[10px] mr-2"
+                        />
+                      )}
+                      <span>
+                        {label.charAt(0).toUpperCase() + label.slice(1)}
+                      </span>
                     </SelectItem>
                   );
                 })}

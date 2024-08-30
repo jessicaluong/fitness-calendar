@@ -94,6 +94,7 @@ export default function EditCategoriesDialog({
                   label="Category color"
                   options={COLORS}
                   placeholder="Select a color"
+                  colorOption
                 />
               </div>
             ))}

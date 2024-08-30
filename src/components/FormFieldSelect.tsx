@@ -12,14 +12,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Category } from "@/lib/types";
+import { Category, Color } from "@/lib/types";
 import { UseFormReturn, FieldPath, FieldValues } from "react-hook-form";
 
 type FormFieldSelectProps<TFieldValues extends FieldValues> = {
   form: UseFormReturn<TFieldValues>;
   name: FieldPath<TFieldValues>;
   label: string;
-  options: Category[];
+  options: Category[] | Color[];
+  placeholder: string;
 };
 
 export default function FormFieldSelect<TFieldValues extends FieldValues>({
@@ -27,6 +28,7 @@ export default function FormFieldSelect<TFieldValues extends FieldValues>({
   name,
   label,
   options,
+  placeholder,
 }: FormFieldSelectProps<TFieldValues>) {
   return (
     <FormField
@@ -39,15 +41,20 @@ export default function FormFieldSelect<TFieldValues extends FieldValues>({
             <Select onValueChange={field.onChange} value={field.value}>
               <FormControl className="col-span-3 sm:col-span-2">
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder={placeholder} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {options.map((option) => (
-                  <SelectItem key={option.id} value={option.id}>
-                    {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
-                  </SelectItem>
-                ))}
+                {options.map((option) => {
+                  const value = typeof option === "string" ? option : option.id;
+                  const label =
+                    typeof option === "string" ? option : option.name;
+                  return (
+                    <SelectItem key={value} value={value}>
+                      {label.charAt(0).toUpperCase() + label.slice(1)}
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
           </div>

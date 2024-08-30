@@ -6,6 +6,11 @@ type DefaultContextType = {
   categories: Category[];
   getCategoryColor: (categoryId: string) => string;
   getCategoryName: (categoryId: string) => string;
+  handleSetCategories: (
+    categoryId: string,
+    newName: string,
+    newColor: string
+  ) => void;
   selectedDate: string;
   handleClickDate: (date: string) => void;
   calendarData: CalendarData;
@@ -50,6 +55,20 @@ export default function CalendarDataContextProvider({
     { id: uuidv4(), name: "Gym", color: "yellow" },
     { id: uuidv4(), name: "Hiking", color: "green" },
   ]);
+
+  const handleSetCategories = (
+    categoryId: string,
+    newName: string,
+    newColor: string
+  ) => {
+    const category = categories.find((category) => category.id === categoryId);
+    // if (category) {
+    //   setCategories((category) => {
+    //     category.name = newName;
+    //     category.color = newColor;
+    //   });
+    // }
+  };
 
   const [calendarData, setCalendarData] = useState<CalendarData>({
     "2024-08-21": [
@@ -287,6 +306,7 @@ export default function CalendarDataContextProvider({
         categories,
         getCategoryColor,
         getCategoryName,
+        handleSetCategories,
         selectedDate,
         handleClickDate,
         calendarData,

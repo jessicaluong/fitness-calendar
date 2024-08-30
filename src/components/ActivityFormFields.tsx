@@ -23,6 +23,7 @@ export default function ActivityFormFields({ form }: ActivityFormFieldsProps) {
         name="category"
         label="Category"
         options={categories}
+        placeholder="Select a category"
       />
     </>
   );

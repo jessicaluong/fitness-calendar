@@ -1,6 +1,9 @@
 export type Theme = "dark" | "light" | "system";
 export type Variant = "calendar" | "category" | "activity" | "exercise";
 
+export const COLORS = ["pink", "blue", "yellow", "green", "purple"];
+export type Color = (typeof COLORS)[number];
+
 export type Exercise = {
   id: string;
   name: string;
@@ -19,7 +22,7 @@ export type Activity = {
 export type Category = {
   id: string;
   name: string;
-  color: string;
+  color: Color;
 };
 
 export type CalendarEntry = {

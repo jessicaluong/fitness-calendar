@@ -4,6 +4,7 @@ import "./CustomCalendar.css";
 import { getColorClasses } from "@/lib/utils";
 import { useTheme } from "@/contexts/theme-provider";
 import { useCalendarDataContext } from "@/lib/hooks";
+import { CalendarEntry } from "@/lib/types";
 
 type TileContentProps = {
   date: Date;
@@ -19,7 +20,7 @@ export default function Calendar() {
     const dayEvents = calendarData[dateStr] || [];
     return (
       <div className="flex flex-wrap gap-0.5 md:gap-1 justify-center">
-        {dayEvents.map((event) => (
+        {dayEvents.map((event: CalendarEntry) => (
           <Square
             key={event.categoryId}
             color={getColorClasses(

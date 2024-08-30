@@ -1,7 +1,18 @@
 export type Theme = "dark" | "light" | "system";
 export type Variant = "calendar" | "category" | "activity" | "exercise";
 
-export const COLORS = ["pink", "blue", "yellow", "green", "purple"];
+export const COLORS = [
+  "red",
+  "orange",
+  "yellow",
+  "lime",
+  "green",
+  "sky",
+  "blue",
+  "purple",
+  "fuchsia",
+  "pink",
+];
 export type Color = (typeof COLORS)[number];
 
 export type Exercise = {

@@ -1,7 +1,5 @@
 .react-calendar {
   @apply bg-background text-foreground border border-border rounded-md shadow-md p-[5px] max-w-[400px] md:max-w-[720px] md:p-[10px];
-  /* width: 620px; */
-  /* max-width: 100%; */
   font-family: inherit;
   line-height: 3em;
 }

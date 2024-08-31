@@ -1,6 +1,5 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { CalendarData, Activity, Category, CalendarEntry } from "@/lib/types";
-import { v4 as uuidv4 } from "uuid";
 
 type DefaultContextType = {
   categories: Category[];
@@ -30,6 +29,29 @@ export const CalendarDataContext = createContext<DefaultContextType | null>(
   null
 );
 
+const getInitialCategories = () => {
+  const savedCategories = localStorage.getItem("categories");
+  if (savedCategories) {
+    return JSON.parse(savedCategories);
+  } else {
+    return [
+      { id: "category1-id", name: "Cardio", color: "blue" },
+      { id: "category2-id", name: "Yoga", color: "pink" },
+      { id: "category3-id", name: "Gym", color: "yellow" },
+      { id: "category4-id", name: "Hiking", color: "green" },
+    ];
+  }
+};
+
+const getInitialCalendarData = () => {
+  const savedCalendarData = localStorage.getItem("calendarData");
+  if (savedCalendarData) {
+    return JSON.parse(savedCalendarData);
+  } else {
+    return {};
+  }
+};
+
 export default function CalendarDataContextProvider({
   children,
 }: CalendarDataContextProviderProps) {
@@ -45,12 +67,8 @@ export default function CalendarDataContextProvider({
     setSelectedDate(date);
   };
 
-  const [categories, setCategories] = useState<Category[]>([
-    { id: uuidv4(), name: "Cardio", color: "blue" },
-    { id: uuidv4(), name: "Yoga", color: "pink" },
-    { id: uuidv4(), name: "Gym", color: "yellow" },
-    { id: uuidv4(), name: "Hiking", color: "green" },
-  ]);
+  const [categories, setCategories] =
+    useState<Category[]>(getInitialCategories);
 
   const handleSetCategories = (newCategories: Category[]) => {
     setCategories(newCategories);
@@ -66,133 +84,9 @@ export default function CalendarDataContextProvider({
     return category ? category.name : "";
   };
 
-  const [calendarData, setCalendarData] = useState<CalendarData>({
-    "2024-08-21": [
-      {
-        categoryId: categories[0].id,
-        activities: [
-          { id: uuidv4(), minutes: 30, name: "walking workout" },
-          { id: uuidv4(), minutes: 15, name: "low impact aerobics" },
-        ],
-      },
-      {
-        categoryId: categories[1].id,
-        activities: [{ id: uuidv4(), minutes: 45, name: "hatha" }],
-      },
-      {
-        categoryId: categories[3].id,
-        activities: [{ id: uuidv4(), minutes: 60, name: "grouse grind" }],
-      },
-      {
-        categoryId: categories[2].id,
-        activities: [
-          {
-            id: uuidv4(),
-            minutes: 60,
-            name: "upper body",
-            exercises: [
-              {
-                id: uuidv4(),
-                sets: 3,
-                reps: 10,
-                name: "back rows",
-                weight: 10,
-              },
-              {
-                id: uuidv4(),
-                sets: 3,
-                reps: 12,
-                name: "lat pull down",
-                weight: 15,
-              },
-              {
-                id: uuidv4(),
-                sets: 4,
-                reps: 10,
-                name: "tricep extensions",
-                weight: 8,
-              },
-              {
-                id: uuidv4(),
-                sets: 3,
-                reps: 12,
-                name: "lateral raises",
-                weight: 5,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-    "2024-08-22": [
-      {
-        categoryId: categories[0].id,
-        activities: [
-          { id: uuidv4(), minutes: 30, name: "walking workout" },
-          { id: uuidv4(), minutes: 15, name: "low impact aerobics" },
-        ],
-      },
-    ],
-    "2024-08-23": [
-      {
-        categoryId: categories[3].id,
-        activities: [
-          { id: uuidv4(), minutes: 60, name: "grouse grind" },
-          { id: uuidv4(), minutes: 60, name: "grouse grind" },
-        ],
-      },
-    ],
-
-    "2024-09-01": [
-      {
-        categoryId: categories[2].id,
-        activities: [
-          {
-            id: uuidv4(),
-            minutes: 60,
-            name: "upper body",
-            exercises: [
-              {
-                id: uuidv4(),
-                sets: 3,
-                reps: 10,
-                name: "back rows",
-                weight: 10,
-              },
-              {
-                id: uuidv4(),
-                sets: 3,
-                reps: 12,
-                name: "lat pull down",
-                weight: 15,
-              },
-              {
-                id: uuidv4(),
-                sets: 4,
-                reps: 10,
-                name: "tricep extensions",
-                weight: 8,
-              },
-              {
-                id: uuidv4(),
-                sets: 3,
-                reps: 12,
-                name: "lateral raises",
-                weight: 5,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-
-    "2024-09-23": [
-      {
-        categoryId: categories[3].id,
-        activities: [{ id: uuidv4(), minutes: 60, name: "grouse grind" }],
-      },
-    ],
-  });
+  const [calendarData, setCalendarData] = useState<CalendarData>(
+    getInitialCalendarData
+  );
 
   const addActivity = (
     prevData: CalendarData,
@@ -285,6 +179,14 @@ export default function CalendarDataContextProvider({
       return updatedData;
     });
   };
+
+  useEffect(() => {
+    localStorage.setItem("categories", JSON.stringify(categories));
+  }, [categories]);
+
+  useEffect(() => {
+    localStorage.setItem("calendarData", JSON.stringify(calendarData));
+  }, [calendarData]);
 
   return (
     <CalendarDataContext.Provider

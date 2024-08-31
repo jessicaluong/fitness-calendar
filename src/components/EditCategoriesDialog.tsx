@@ -85,13 +85,13 @@ export default function EditCategoriesDialog({
                 <FormFieldInput
                   form={form}
                   name={`categs.${index}.name` as const}
-                  label="Category name"
+                  label="Category Name"
                   placeholder="Aerobics"
                 />
                 <FormFieldSelect
                   form={form}
                   name={`categs.${index}.color` as const}
-                  label="Category color"
+                  label="Category Color"
                   options={COLORS}
                   placeholder="Select a color"
                   colorOption

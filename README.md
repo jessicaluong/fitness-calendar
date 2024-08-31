@@ -1,25 +1,65 @@
-<img width="900" alt="calendar" src="https://github.com/user-attachments/assets/17201dc8-7e6d-4b7a-bbae-634728e71bd0">
-
 # Fitness Calendar
 
-This calendar application allows users to add and visualize their workouts in a colorful, easy-to-read format. The project is currently in development.
+(insert light mode image)
 
-## Low Fidelity Prototype
-
-Below is the low fidelity prototype for the planned user interface:
-
-![prototype](https://github.com/user-attachments/assets/f817f32d-8534-4e6e-81fe-b0c71b3952cd)
+This calendar application allows users to track and visualize their workouts in a colourful, easy-to-read format.
 
 ## Technologies Used
 
-### Front End
+This project uses React, TypeScript, and Tailwind CSS.
 
 ![Front end technologies used](https://skillicons.dev/icons?i=react,ts,tailwind)
 
-I am developing the front end using React, TypeScript, and Tailwind CSS.
+## Features
 
-### Back End
+📅 Interactive Calendar
 
-![Back end technologies used](https://skillicons.dev/icons?i=nodejs,express,mongodb)
+- Visualize workouts with color-coded categories
+- Click on dates to view detailed workout information
 
-For the back end, I plan to use Node.js, Express, and MongoDB.
+🎨 Customizable Categories
+
+- Create and edit workout categories
+- Assign custom colors to each category for easy visual tracking
+
+📝 Activity Management
+
+- Add new workout activities
+- Edit existing activities to keep your fitness data up-to-date
+
+🌓 Theme Options
+
+- Switch between light and dark modes for comfortable viewing in any environment
+
+📱 Responsive Design
+
+- Enjoy a seamless experience across desktop, tablet, and mobile devices
+
+## Usage
+
+### Adding a New Activity
+
+1. Click on a date in the calendar
+2. Click the "Add Activity" button
+3. Fill in the activity details and select a category
+4. Click "Save" to add the activity
+
+(insert gif)
+
+### Editing an Activity
+
+1. Click on a date with an existing activity
+2. Click on the activity you want to edit
+3. Modify the details as needed
+4. Click "Save" to update the activity
+
+(insert gif)
+
+### Managing Categories
+
+1. Click on the "Edit Categories" button
+2. Add new categories or edit existing ones
+3. Customize category names and colors
+4. Click "Save" to update your categories
+
+(insert gif)

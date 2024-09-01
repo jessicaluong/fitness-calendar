@@ -22,16 +22,16 @@ This project uses React, TypeScript, and Tailwind CSS.
 🎨 Customizable Categories
 
 - Create and edit workout categories
-- Assign custom colors to each category for easy visual tracking
+- Assign custom colors to each category
 
 📝 Activity Management
 
 - Add new workout activities
-- Edit existing activities to keep your fitness data up-to-date
+- Edit existing activities
 
 🌓 Theme Options
 
-- Switch between light and dark modes for comfortable viewing in any environment
+- Switch between light and dark modes
 
   <img width="700" alt="dark_mode" src="https://github.com/user-attachments/assets/859b1954-746e-48c8-9f0c-6f3d7671f776">
 
@@ -46,7 +46,7 @@ This project uses React, TypeScript, and Tailwind CSS.
 ### Adding a New Activity
 
 1. Click on a date in the calendar
-2. Click the "Add Activity" button
+2. Click the "New Activity" button
 3. Fill in the activity details and select a category
 4. Click "Save" to add the activity
 

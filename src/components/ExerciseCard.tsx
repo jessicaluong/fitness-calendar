@@ -19,13 +19,14 @@ export default function ExerciseCard({
         <CardHeader>
           <CardTitle left>
             {exercises.map((exercise) => (
-              <p key={exercise.id}>
-                <span className="tracking-tight">
-                  {exercise.sets} x {exercise.reps}{" "}
+              <p key={exercise.id} className="text-[0.95rem] flex items-center">
+                <span className="flex-grow whitespace-nowrap overflow-hidden text-ellipsis mr-1">
+                  <span className="tracking-tight">
+                    {exercise.sets} x {exercise.reps}{" "}
+                  </span>
+                  {exercise.name}
                 </span>
-                {exercise.name}
-                <span className="text-[0.9rem] tracking-tight">
-                  {" "}
+                <span className="text-[0.9rem] tracking-tight whitespace-nowrap flex-shrink-0">
                   ({exercise.weight} lbs)
                 </span>
               </p>

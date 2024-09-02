@@ -20,8 +20,14 @@ export default function ExerciseCard({
           <CardTitle left>
             {exercises.map((exercise) => (
               <p key={exercise.id}>
-                {exercise.sets} x {exercise.reps} {exercise.name} (
-                {exercise.weight} lbs)
+                <span className="tracking-tight">
+                  {exercise.sets} x {exercise.reps}{" "}
+                </span>
+                {exercise.name}
+                <span className="text-[0.9rem] tracking-tight">
+                  {" "}
+                  ({exercise.weight} lbs)
+                </span>
               </p>
             ))}
           </CardTitle>

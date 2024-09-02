@@ -26,7 +26,7 @@ export function AddActivityDialog() {
 
   const defaultValues = {
     activity: "",
-    minutes: 30,
+    minutes: 0,
     category: undefined,
     exercises: [],
   };
@@ -85,7 +85,11 @@ export function AddActivityDialog() {
                 className="grid grid-cols-1 border-t-[2px] gap-2 pt-4"
               >
                 <ExerciseFormFields form={form} index={index} />
-                <Button variant="secondary" onClick={() => remove(index)}>
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={() => remove(index)}
+                >
                   Remove Exercise
                 </Button>
               </div>
@@ -93,6 +97,7 @@ export function AddActivityDialog() {
             <DialogFooter className="gap-2 sm:gap-0">
               <Button
                 variant="outline"
+                type="button"
                 onClick={() => {
                   append({
                     name: "",

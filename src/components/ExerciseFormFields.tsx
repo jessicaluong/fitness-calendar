@@ -23,19 +23,16 @@ export default function ExerciseFormFields({
         form={form}
         name={`exercises.${index}.sets` as const}
         label="Sets"
-        placeholder="3"
       />
       <FormFieldInput
         form={form}
         name={`exercises.${index}.reps` as const}
         label="Reps"
-        placeholder="10"
       />
       <FormFieldInput
         form={form}
         name={`exercises.${index}.weight` as const}
         label="Weight (in lbs)"
-        placeholder="135"
       />
     </>
   );

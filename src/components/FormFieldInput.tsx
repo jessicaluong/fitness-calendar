@@ -30,7 +30,15 @@ export default function FormFieldInput<TFieldValues extends FieldValues>({
           <div className="grid grid-cols-4 sm:grid-cols-3 items-center gap-4">
             <FormLabel className="text-right">{label}</FormLabel>
             <FormControl className="col-span-3 sm:col-span-2">
-              <Input placeholder={placeholder} {...field} />
+              <Input
+                placeholder={placeholder}
+                {...field}
+                onFocus={(e) => {
+                  if (e.target.value === "0") {
+                    e.target.value = "";
+                  }
+                }}
+              />
             </FormControl>
           </div>
           <FormMessage className="mt-1 ml-[27%] sm:ml-[35%]" />

@@ -1,5 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import { CalendarData, Activity, Category, CalendarEntry } from "@/lib/types";
+import { v4 as uuidv4 } from "uuid";
 
 type DefaultContextType = {
   categories: Category[];
@@ -19,6 +20,8 @@ type DefaultContextType = {
     activityId: string,
     oldCalendarEntry: CalendarEntry
   ) => void;
+  handleCopyToDate: (date: string) => void;
+  handleCopyFromDate: (date: string) => void;
 };
 
 type CalendarDataContextProviderProps = {
@@ -91,43 +94,45 @@ export default function CalendarDataContextProvider({
   const addActivity = (
     prevData: CalendarData,
     newActivity: Activity,
-    newCategoryId: string
+    newCategoryId: string,
+    date: string
   ) => {
     const updatedData = { ...prevData };
 
     // Check if date exists
-    if (!updatedData[selectedDate]) {
-      updatedData[selectedDate] = [];
+    if (!updatedData[date]) {
+      updatedData[date] = [];
     }
 
-    const newCategoryIndex = updatedData[selectedDate].findIndex(
+    const newCategoryIndex = updatedData[date].findIndex(
       (item) => item.categoryId === newCategoryId
     );
 
     if (newCategoryIndex !== -1) {
       // Category exists, add new activity to existing category
-      updatedData[selectedDate][newCategoryIndex].activities.push(newActivity);
+      updatedData[date][newCategoryIndex].activities.push(newActivity);
     } else {
       // Category doesn't exist, create new category and add activity to it
       const newCategoryData: CalendarEntry = {
         categoryId: newCategoryId,
         activities: [newActivity],
       };
-      updatedData[selectedDate].push(newCategoryData);
+      updatedData[date].push(newCategoryData);
     }
     return updatedData;
   };
 
   const handleAddActivity = (newActivity: Activity, newCategoryId: string) => {
     setCalendarData((prevData) =>
-      addActivity(prevData, newActivity, newCategoryId)
+      addActivity(prevData, newActivity, newCategoryId, selectedDate)
     );
   };
 
   const removeActivity = (
     prevData: CalendarData,
     activityId: string,
-    oldCalendarEntry: CalendarEntry
+    oldCalendarEntry: CalendarEntry,
+    date: string
   ) => {
     const updatedData = { ...prevData };
 
@@ -136,7 +141,7 @@ export default function CalendarDataContextProvider({
     );
     // If no more activities in that category, then delete it
     if (oldCalendarEntry.activities.length <= 0) {
-      updatedData[selectedDate] = updatedData[selectedDate].filter(
+      updatedData[date] = updatedData[date].filter(
         (category) => category.categoryId !== oldCalendarEntry.categoryId
       );
     }
@@ -148,7 +153,7 @@ export default function CalendarDataContextProvider({
     oldCalendarEntry: CalendarEntry
   ) => {
     setCalendarData((prevData) =>
-      removeActivity(prevData, activityId, oldCalendarEntry)
+      removeActivity(prevData, activityId, oldCalendarEntry, selectedDate)
     );
   };
 
@@ -171,11 +176,55 @@ export default function CalendarDataContextProvider({
         updatedData = removeActivity(
           updatedData,
           activityToEdit.id,
-          oldCalendarEntry
+          oldCalendarEntry,
+          selectedDate
         );
-        updatedData = addActivity(updatedData, activityToEdit, newCategoryId);
+        updatedData = addActivity(
+          updatedData,
+          activityToEdit,
+          newCategoryId,
+          selectedDate
+        );
       }
 
+      return updatedData;
+    });
+  };
+
+  const handleCopyToDate = (date: string) => {
+    // copy from selectedDate to date
+    const calendarEntriesToCopy = calendarData[selectedDate];
+    setCalendarData((prevData) => {
+      let updatedData = { ...prevData };
+      calendarEntriesToCopy.forEach((entry) =>
+        entry.activities.forEach((activity) => {
+          updatedData = addActivity(
+            updatedData,
+            activity,
+            entry.categoryId,
+            date
+          );
+        })
+      );
+      return updatedData;
+    });
+  };
+
+  const handleCopyFromDate = (date: string) => {
+    // copy from date to selectedDate
+    const calendarEntriesToCopy = calendarData[date];
+    setCalendarData((prevData) => {
+      let updatedData = { ...prevData };
+      calendarEntriesToCopy.forEach((entry) =>
+        entry.activities.forEach((activity) => {
+          updatedData = addActivity(
+            updatedData,
+            activity,
+            entry.categoryId,
+            selectedDate
+          );
+        })
+      );
       return updatedData;
     });
   };
@@ -201,6 +250,8 @@ export default function CalendarDataContextProvider({
         handleAddActivity,
         handleRemoveActivity,
         handleEditActivity,
+        handleCopyToDate,
+        handleCopyFromDate,
       }}
     >
       {children}

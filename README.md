@@ -4,7 +4,7 @@ This calendar application allows users to track and visualize their workouts in 
 
 Try out the app here: https://fitness-calendar-chi.vercel.app/
 
-<img width="700" alt="light_mode" src="https://github.com/user-attachments/assets/e2d3aeaf-bbb4-4881-bf98-c229e337db30">
+<img width="700" alt="light_mode" src="https://github.com/user-attachments/assets/8bbd686b-18ae-4847-a220-3a3ae056feff">
 
 ## Technologies Used
 
@@ -33,39 +33,24 @@ This project uses React, TypeScript, and Tailwind CSS.
 
 - Switch between light and dark modes
 
-  <img width="700" alt="dark_mode" src="https://github.com/user-attachments/assets/859b1954-746e-48c8-9f0c-6f3d7671f776">
-
+  <img width="700" alt="dark_mode" src="https://github.com/user-attachments/assets/7ecd34a4-9a26-44d2-82ce-11989b719e82">
+  
 📱 Responsive Design
 
 - Enjoy a seamless experience across desktop, tablet, and mobile devices
 
-  <img width="300" alt="mobile_view" src="https://github.com/user-attachments/assets/7c355583-3987-4af6-a551-4b621a446b5c">
+  <img width="300" alt="mobile" src="https://github.com/user-attachments/assets/8732ee8b-8a00-47e7-b339-a1eb924cdc5d">
 
 ## Usage
 
 ### Adding a New Activity
 
-1. Click on a date in the calendar
-2. Click the "New Activity" button
-3. Fill in the activity details and select a category
-4. Click "Save" to add the activity
-
-  <img width="600" alt="new_activity" src="https://github.com/user-attachments/assets/a3f87914-c729-4fcc-8a85-f08ec2c0c197">
+  <img width="600" alt="new_activity" src="https://github.com/user-attachments/assets/8c039c5b-d5f4-4e19-9c8f-5e1497953b50">
 
 ### Editing an Activity
 
-1. Click on a date with an existing activity
-2. Click on the activity you want to edit
-3. Modify the details as needed
-4. Click "Save" to update the activity
-
-  <img width="600" alt="edit_activity" src="https://github.com/user-attachments/assets/c4ffb61d-b44e-4fff-99de-9a15ec6c009f">
+  <img width="600" alt="edit_activity" src="https://github.com/user-attachments/assets/8e9fbf4e-f9ea-43df-a6d5-05cd73173fbb">
 
 ### Managing Categories
 
-1. Click on the "Edit Categories" button
-2. Add new categories or edit existing ones
-3. Customize category names and colors
-4. Click "Save" to update your categories
-
-  <img width="600" alt="new_activity" src="https://github.com/user-attachments/assets/14f5a344-bb18-40b0-bcc0-1a16feb0f21f">
+  <img width="600" alt="new_activity" src="https://github.com/user-attachments/assets/feba3a06-e4bd-43c8-8754-825781f251d5">

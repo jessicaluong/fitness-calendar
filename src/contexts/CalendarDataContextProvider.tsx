@@ -1,6 +1,5 @@
 import { useState, createContext, useEffect } from "react";
 import { CalendarData, Activity, Category, CalendarEntry } from "@/lib/types";
-import { v4 as uuidv4 } from "uuid";
 
 type DefaultContextType = {
   categories: Category[];

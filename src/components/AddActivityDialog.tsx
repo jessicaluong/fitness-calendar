@@ -94,7 +94,7 @@ export function AddActivityDialog() {
                 </Button>
               </div>
             ))}
-            <DialogFooter className="gap-2 sm:gap-0">
+            <DialogFooter className="gap-2 sm:gap-0 border-t-[2px] sm:border-0 pt-4 sm:pt-0">
               <Button
                 variant="outline"
                 type="button"

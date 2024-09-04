@@ -80,7 +80,9 @@ export default function EditCategoriesDialog({
             {fields.map((field, index) => (
               <div
                 key={`${field.id}`}
-                className="grid grid-cols-1 border-t-[2px] gap-2 pt-4"
+                className={`grid grid-cols-1 border-b-[2px] gap-2 pb-4 ${
+                  index === fields.length - 1 ? "sm:border-b-0 sm:pb-0" : ""
+                }`}
               >
                 <FormFieldInput
                   form={form}
@@ -99,7 +101,7 @@ export default function EditCategoriesDialog({
               </div>
             ))}
 
-            <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 border-t-[2px] pt-4 sm:border-0 sm:pt-0">
+            <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
               <Button
                 variant="outline"
                 onClick={() => {

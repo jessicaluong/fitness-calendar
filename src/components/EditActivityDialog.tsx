@@ -92,7 +92,7 @@ export default function EditActivityDialog({
             className="grid gap-4 py-2"
           >
             <ActivityFormFields form={form} />
-            <Button variant="secondary" onClick={removeActivity}>
+            <Button variant="secondary" type="button" onClick={removeActivity}>
               Remove Activity
             </Button>
             {fields.map((field, index) => (

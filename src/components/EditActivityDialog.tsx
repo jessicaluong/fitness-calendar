@@ -18,6 +18,7 @@ import ActivityFormFields from "./ActivityFormFields";
 import ExerciseFormFields from "./ExerciseFormFields";
 import { useCalendarDataContext } from "@/lib/hooks";
 import { createFormSchema } from "@/lib/formSchema";
+import { DatePicker } from "./DatePicker";
 
 type EditActivityDialogProps = {
   open: boolean;
@@ -32,8 +33,12 @@ export default function EditActivityDialog({
   activity,
   calendarEntry,
 }: EditActivityDialogProps) {
-  const { handleEditActivity, handleRemoveActivity, categories } =
-    useCalendarDataContext();
+  const {
+    handleEditActivity,
+    handleRemoveActivity,
+    handleCopyActivityToDate,
+    categories,
+  } = useCalendarDataContext();
   const formSchema = createFormSchema(categories);
 
   const defaultValues = {
@@ -73,11 +78,29 @@ export default function EditActivityDialog({
     form.reset(defaultValues);
   }
 
-  const removeActivity = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const removeActivity = () => {
     handleRemoveActivity(activity.id, calendarEntry);
     onOpenChange(false);
   };
+
+  const handleCopy =
+    (
+      copyFunction: (
+        date: string,
+        newActivity: Activity,
+        categoryId: string
+      ) => void
+    ) =>
+    (date: string) => {
+      const newActivity: Activity = {
+        id: uuidv4(),
+        minutes: activity.minutes,
+        name: activity.name,
+        exercises: activity.exercises,
+      };
+      copyFunction(date, newActivity, calendarEntry.categoryId);
+      onOpenChange(false);
+    };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -110,23 +133,33 @@ export default function EditActivityDialog({
                 </Button>
               </div>
             ))}
-            <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 border-t-[2px] pt-4 sm:border-0 sm:pt-0">
-              <Button
-                variant="outline"
-                type="button"
-                onClick={() => {
-                  append({
-                    name: "",
-                    sets: 0,
-                    reps: 0,
-                    weight: 0,
-                    id: uuidv4(),
-                  });
-                }}
-              >
-                Add Exercise
-              </Button>
-              <Button type="submit">Save</Button>
+            <DialogFooter className="flex flex-col border-t-[2px] sm:border-0 pt-4 sm:pt-0 gap-2">
+              <div className="flex flex-col sm:me-auto">
+                <Button variant="outline" type="button">
+                  <DatePicker
+                    label="Copy To"
+                    handleCopy={handleCopy(handleCopyActivityToDate)}
+                  />
+                </Button>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => {
+                    append({
+                      name: "",
+                      sets: 0,
+                      reps: 0,
+                      weight: 0,
+                      id: uuidv4(),
+                    });
+                  }}
+                >
+                  Add Exercise
+                </Button>
+                <Button type="submit">Save</Button>
+              </div>
             </DialogFooter>
           </form>
         </Form>

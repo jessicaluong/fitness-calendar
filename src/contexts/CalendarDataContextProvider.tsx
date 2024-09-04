@@ -21,6 +21,11 @@ type DefaultContextType = {
   ) => void;
   handleCopyToDate: (date: string) => void;
   handleCopyFromDate: (date: string) => void;
+  handleCopyActivityToDate: (
+    date: string,
+    newActivity: Activity,
+    categoryId: string
+  ) => void;
 };
 
 type CalendarDataContextProviderProps = {
@@ -228,6 +233,16 @@ export default function CalendarDataContextProvider({
     });
   };
 
+  const handleCopyActivityToDate = (
+    date: string,
+    newActivity: Activity,
+    categoryId: string
+  ) => {
+    setCalendarData((prevData) =>
+      addActivity(prevData, newActivity, categoryId, date)
+    );
+  };
+
   useEffect(() => {
     localStorage.setItem("categories", JSON.stringify(categories));
   }, [categories]);
@@ -251,6 +266,7 @@ export default function CalendarDataContextProvider({
         handleEditActivity,
         handleCopyToDate,
         handleCopyFromDate,
+        handleCopyActivityToDate,
       }}
     >
       {children}

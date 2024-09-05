@@ -137,7 +137,7 @@ export default function EditActivityDialog({
               <div className="flex flex-col sm:me-auto">
                 <Button variant="outline" type="button">
                   <DatePicker
-                    label="Copy To"
+                    label="Copy To Date"
                     handleCopy={handleCopy(handleCopyActivityToDate)}
                   />
                 </Button>

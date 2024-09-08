@@ -83,24 +83,27 @@ export default function EditActivityDialog({
     onOpenChange(false);
   };
 
-  const handleCopy =
-    (
-      copyFunction: (
-        date: string,
-        newActivity: Activity,
-        categoryId: string
-      ) => void
-    ) =>
-    (date: string) => {
+  function handleCopy(
+    copyFunction: (
+      date: string,
+      newActivity: Activity,
+      categoryId: string
+    ) => void
+  ) {
+    return (date: string) => {
+      const values = form.getValues();
       const newActivity: Activity = {
         id: uuidv4(),
-        minutes: activity.minutes,
-        name: activity.name,
-        exercises: activity.exercises,
+        minutes: values.minutes,
+        name: values.activity,
       };
-      copyFunction(date, newActivity, calendarEntry.categoryId);
+      if (values.exercises && values.exercises.length > 0) {
+        newActivity.exercises = values.exercises;
+      }
+      copyFunction(date, newActivity, values.category);
       onOpenChange(false);
     };
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

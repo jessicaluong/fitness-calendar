@@ -1,0 +1,6 @@
+@FitnessCalendarApi_HostAddress = http://localhost:5119
+
+GET {{FitnessCalendarApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

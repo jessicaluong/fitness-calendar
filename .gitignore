@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 readme_images
+
+bin/
+obj/
+.env

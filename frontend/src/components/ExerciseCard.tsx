@@ -26,9 +26,9 @@ export default function ExerciseCard({
                   </span>
                   {exercise.name}
                 </span>
-                <span className="text-[0.9rem] tracking-tight whitespace-nowrap flex-shrink-0">
+                {exercise.weight !== 0 && <span className="text-[0.9rem] tracking-tight whitespace-nowrap flex-shrink-0">
                   ({exercise.weight} lbs)
-                </span>
+                </span>}
               </p>
             ))}
           </CardTitle>

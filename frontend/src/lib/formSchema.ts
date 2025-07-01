@@ -13,7 +13,13 @@ const exerciseSchema = z.object({
   name: z.string().min(1, "Required"),
   sets: number,
   reps: number,
-  weight: number,
+  weight: z.coerce
+    .number({
+      message: "Must be a number",
+    })
+    .min(0, {
+      message: "Must be a positive number",
+    }),
   id: z.string(),
 });
 

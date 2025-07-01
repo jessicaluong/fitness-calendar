@@ -6,11 +6,22 @@ Try out the app here: https://fitness-calendar-chi.vercel.app/
 
 <img width="700" alt="light_mode" src="https://github.com/user-attachments/assets/8bbd686b-18ae-4847-a220-3a3ae056feff">
 
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#tech)
+- [Usage](#usage)
+- [Current Development Status](#status)
+
+<div id="tech"></div>
+
 ## Technologies Used
 
 This project uses React, TypeScript, and Tailwind CSS.
 
 ![Front end technologies used](https://skillicons.dev/icons?i=react,ts,tailwind)
+
+<div id="features"></div>
 
 ## Features
 
@@ -41,6 +52,8 @@ This project uses React, TypeScript, and Tailwind CSS.
 
   <img width="300" alt="mobile" src="https://github.com/user-attachments/assets/8732ee8b-8a00-47e7-b339-a1eb924cdc5d">
 
+<div id="usage"></div>
+
 ## Usage
 
 ### Adding a New Activity
@@ -54,3 +67,15 @@ This project uses React, TypeScript, and Tailwind CSS.
 ### Managing Categories
 
   <img width="600" alt="new_activity" src="https://github.com/user-attachments/assets/feba3a06-e4bd-43c8-8754-825781f251d5">
+
+<div id="status"></div>
+
+## Current Development Status 
+
+The frontend for this project is complete, usable, and described above. It stores data locally. 
+
+I am adding a backend for this project so data can be synced across devices. 
+
+The tech stack for this is C# and .NET. 
+
+![Front end technologies used](https://skillicons.dev/icons?i=cs,dotnet)

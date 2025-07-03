@@ -1,8 +1,8 @@
-import CategoryCard from "./CategoryCard";
-import Calendar from "./Calendar";
-import Header from "./Header";
+import CategoryCard from "./activity/CategoryCard";
+import Calendar from "./calendar/Calendar";
+import Header from "./header/Header";
 import { useCalendarDataContext } from "@/lib/hooks";
-import ActivityActions from "./ActivityActions";
+import ActivityActions from "./activityActions/ActivityActions";
 
 function App() {
   const { calendarData, selectedDate, getCategoryColor } =

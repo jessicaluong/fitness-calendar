@@ -6,9 +6,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DatePicker } from "./DatePicker";
 import { useCalendarDataContext } from "@/lib/hooks";
 import { useState } from "react";
+import { DatePicker } from "../shared/DatePicker";
 
 export function CustomDropdownMenu() {
   const [open, setOpen] = useState(false);

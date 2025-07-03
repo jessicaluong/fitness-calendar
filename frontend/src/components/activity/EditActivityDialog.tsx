@@ -14,11 +14,12 @@ import {
 import { Activity, CalendarEntry } from "@/lib/types";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import ActivityFormFields from "./ActivityFormFields";
-import ExerciseFormFields from "./ExerciseFormFields";
+
 import { useCalendarDataContext } from "@/lib/hooks";
 import { createFormSchema } from "@/lib/formSchema";
-import { DatePicker } from "./DatePicker";
+import ActivityFormFields from "../shared/ActivityFormFields";
+import ExerciseFormFields from "../shared/ExerciseFormFields";
+import { DatePicker } from "../shared/DatePicker";
 
 type EditActivityDialogProps = {
   open: boolean;

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ModeToggle } from "./mode-toggle";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import EditCategoriesDialog from "./EditCategoriesDialog";
 import { LayoutGrid } from "lucide-react";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Header() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

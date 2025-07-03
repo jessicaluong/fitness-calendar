@@ -14,9 +14,9 @@ import {
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useCalendarDataContext } from "@/lib/hooks";
-import FormFieldInput from "./FormFieldInput";
-import FormFieldSelect from "./FormFieldSelect";
 import { COLORS } from "@/lib/types";
+import FormFieldInput from "../shared/FormFieldInput";
+import FormFieldSelect from "../shared/FormFieldSelect";
 
 type EditCategoriesDialogProps = {
   open: boolean;

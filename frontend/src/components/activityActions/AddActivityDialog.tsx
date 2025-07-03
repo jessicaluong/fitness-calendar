@@ -15,10 +15,10 @@ import {
 import { Activity } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import ActivityFormFields from "./ActivityFormFields";
-import ExerciseFormFields from "./ExerciseFormFields";
 import { useCalendarDataContext } from "@/lib/hooks";
 import { createFormSchema } from "@/lib/formSchema";
+import ActivityFormFields from "../shared/ActivityFormFields";
+import ExerciseFormFields from "../shared/ExerciseFormFields";
 
 export function AddActivityDialog() {
   const { handleAddActivity, categories } = useCalendarDataContext();

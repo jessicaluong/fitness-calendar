@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/select";
 import { Category, Color } from "@/lib/types";
 import { UseFormReturn, FieldPath, FieldValues } from "react-hook-form";
-import Square from "./Square";
 import { getColorClasses } from "@/lib/utils";
 import { useTheme } from "@/contexts/theme-provider";
+import Square from "./Square";
 
 type FormFieldSelectProps<TFieldValues extends FieldValues> = {
   form: UseFormReturn<TFieldValues>;

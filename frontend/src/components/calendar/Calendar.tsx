@@ -1,5 +1,5 @@
 import ReactCalendar from "react-calendar";
-import Square from "./Square";
+import Square from "../shared/Square";
 import "./CustomCalendar.css";
 import { getColorClasses } from "@/lib/utils";
 import { useTheme } from "@/contexts/theme-provider";
